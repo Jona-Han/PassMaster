@@ -1,4 +1,4 @@
-# Password Manager Personal Project
+# Password Manager Project
 
 ## 1. Summary
 

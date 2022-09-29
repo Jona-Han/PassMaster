@@ -1,7 +1,7 @@
 # Password Manager Personal Project
 
 ## 1. Summary
-__________________
+
 **This project stores account login information.** All of the username and password combinations can be accessed after
 logging in using a master username and password. Login information is stored and encrypted onto the local file system.
 The project then decrypts the stored information to provide to the user.
@@ -15,7 +15,7 @@ information attached to their account. They expect their data to be kept private
 understand how this is done.
 
 ## 2. User Stories
-__________________
+
 - As a user, I want to be able to log in using a master username and password.
 - As a user, I want to be able to see a list of accounts
 - As a user, I want to be able to add an account to my list of accounts

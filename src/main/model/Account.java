@@ -33,7 +33,7 @@ public class Account {
      * MODIFIES: this
      * EFFECTS: changes the account's associated password
      */
-    public void setPassword(string password) {
+    public void setPassword(String password) {
         //stub
     }
 

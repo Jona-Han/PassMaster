@@ -1,5 +1,6 @@
 package model;
 
+//Represents an account with a name, a login username, and a login password
 public class Account {
     private String name;
     private String username;

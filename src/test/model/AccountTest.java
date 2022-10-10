@@ -33,7 +33,7 @@ class AccountTest {
     }
 
     @Test
-    void testPassword() {
+    void testSetPassword() {
         account.setPassword("newPassword");
         assertEquals("newPassword", account.getPassword());
     }

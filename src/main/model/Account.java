@@ -1,13 +1,18 @@
 package model;
 
 public class Account {
+    private String name;
+    private String username;
+    private String password;
 
     /*
      * REQUIRES: accountName and accountPassword have non-zero length
      * EFFECTS: constructs an Account object with specified fields
      */
     public Account(String name, String username, String password) {
-        //stub
+        this.name = name;
+        this.username = username;
+        this.password = password;
     }
 
     /*
@@ -16,7 +21,7 @@ public class Account {
      * EFFECTS: changes the account's associated name
      */
     public void setName(String name) {
-        //stub
+        this.name = name;
     }
 
     /*
@@ -25,7 +30,7 @@ public class Account {
      * EFFECTS: changes the account's associated username
      */
     public void setUsername(String username) {
-        //stub
+        this.username = username;
     }
 
     /*
@@ -34,19 +39,19 @@ public class Account {
      * EFFECTS: changes the account's associated password
      */
     public void setPassword(String password) {
-        //stub
+        this.password = password;
     }
 
     public String getName() {
-        return null;    //stub
+        return name;    //stub
     }
 
     public String getUsername() {
-        return null;    //stub
+        return username;    //stub
     }
 
     public String getPassword() {
-        return null;    //stub
+        return password;    //stub
     }
 }
 

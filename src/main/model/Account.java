@@ -6,7 +6,7 @@ public class Account {
      * REQUIRES: accountName and accountPassword have non-zero length
      * EFFECTS: constructs an Account object with specified fields
      */
-    public void Account(String name, String username, String password) {
+    public Account(String name, String username, String password) {
         //stub
     }
 

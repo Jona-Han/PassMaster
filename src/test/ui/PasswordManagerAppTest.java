@@ -26,11 +26,15 @@ public class PasswordManagerAppTest {
     @Test
     void testDisplayCommandMenu() {}
 
+    //TODO
     @Test
     void testDisplayAllAccounts() {}
 
+
+    //TODO
     @Test
-    void testGetUserInput() {}
+    void testGetUserInput() {
+    }
 
     @Test
     void testProcessCommand() {}

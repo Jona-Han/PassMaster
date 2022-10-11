@@ -1,5 +1,6 @@
 package ui;
 
+import model.Account;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -11,6 +12,9 @@ public class PasswordManagerAppTest {
     @BeforeEach
     void setUp() {
         manager = new PasswordManagerApp();
+        accounts.add(new Account("test1", "user1", "pass1"));
+        accounts.add(new Account("test2", "user2", "pass2"));
+        accounts.add(new Account("test3", "user2", "pass3"));
     }
 
 

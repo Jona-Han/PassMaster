@@ -2,11 +2,7 @@ package ui;
 
 import model.Account;
 
-import java.sql.SQLOutput;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.Scanner;
+import java.util.*;
 
 //Password Manager Application
 public class PasswordManagerApp {
@@ -46,9 +42,10 @@ public class PasswordManagerApp {
         init();
 
         boolean running = true;
-        String userInput = null;
+        String userInput;
 
         while (running) {
+            System.out.println("\n");
             displayAllAccounts();
             displayCommandMenu();
             userInput = getUserInput();
@@ -62,7 +59,7 @@ public class PasswordManagerApp {
         System.out.println("Good bye!");
     }
     /*
-     * EFFECTS: Initializes list of accounts for testing
+     * EFFECTS: Initializes list of accounts and adds 3 accounts for testing
      */
     private void init() {
         accounts = new ArrayList<>();
@@ -81,7 +78,12 @@ public class PasswordManagerApp {
      * EFFECTS: Displays a list of all stored accounts to user
      */
     private void displayAllAccounts() {
-        System.out.println("....PLACEHOLDER LIST OF ACCOUNTS....");
+        System.out.println("_____LIST OF ACCOUNTS_____");
+        System.out.format("%-10s %-1s", "Number:", "Account Name:");
+        for (int index = 0; index < accounts.size(); index++) {
+            System.out.format("%n %-10s %-1s", index + 1, accounts.get(index).getName());
+        }
+        System.out.println("\n");
     }
 
     /*
@@ -98,6 +100,7 @@ public class PasswordManagerApp {
      */
     protected void processCommand(String command) {
         Account accountToManage;
+        command = command.toLowerCase();
         switch (command) {
             case "v":
                 accountToManage = getAccountFromAccounts();
@@ -110,7 +113,10 @@ public class PasswordManagerApp {
                 accountToManage = getAccountFromAccounts();
                 removeAccount(accountToManage);
                 break;
+            default:
+                System.out.println("Command not valid. Please try again.");
         }
+        pressEnterToContinue();
     }
 
     /*
@@ -127,14 +133,22 @@ public class PasswordManagerApp {
      * EFFECTS: Displays information about a specific account stored in the manager
      */
     protected void viewSpecificAccountInformation(Account account) {
-        System.out.println(account.getName() + "-------------------------------\nUsername: "
-                + account.getUsername() + "\nPassword: " + account.getPassword());
+        System.out.println("\n" + account.getName() + "\nUsername: " + account.getUsername() + "\nPassword: "
+                + account.getPassword());
+    }
+
+    /*
+     * EFFECTS: Prompt user to press the Enter key to continue the application
+     */
+    protected void pressEnterToContinue() {
+        System.out.println("Press the Enter key to continue...");
+        getUserInput();
     }
 
     /*
      * REQUIRES: name, username, and password must be longer than zero
      * MODIFIES: this
-     * EFFECTS: Asks user for name, username, and password and adds an account to the manager
+     * EFFECTS: Adds an account to the manager
      */
     protected void addAccount() {
         System.out.println("What would you like to name the new account?");
@@ -147,6 +161,7 @@ public class PasswordManagerApp {
         String password = getUserInput();
 
         accounts.add(new Account(name, username, password));
+        System.out.println("Account successfully added!");
     }
 
     /*
@@ -155,7 +170,8 @@ public class PasswordManagerApp {
      * EFFECTS: Removes an account from the password manager
      */
     protected void removeAccount(Account account) {
-        //stub
+        accounts.remove(account);
+        System.out.println("Account successfully removed!");
     }
 
     /*
@@ -163,7 +179,7 @@ public class PasswordManagerApp {
      * MODIFIES: this, account
      * EFFECTS: Edits account information
      */
-    protected void editAccount(int indexOfAccount) {
+    protected void editAccount(Account account) {
         //stub
     }
 

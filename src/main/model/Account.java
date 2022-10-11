@@ -55,9 +55,3 @@ public class Account {
         return password;    //stub
     }
 }
-
-/*
- * REQUIRES:
- * MODIFIES:
- * EFFECTS:
- */

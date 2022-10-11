@@ -117,6 +117,7 @@ public class PasswordManagerApp {
             default:
                 System.out.println("Command not valid. Please try again.");
         }
+        System.out.println("\n");
         pressEnterToContinue();
     }
 

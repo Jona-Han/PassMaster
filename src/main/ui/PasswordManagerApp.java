@@ -107,7 +107,8 @@ public class PasswordManagerApp {
                 viewSpecificAccountInformation(accountToManage);
                 break;
             case "a":
-                addAccount();
+                accountToManage = getNewAccountInfo();
+                addAccount(accountToManage);
                 break;
             case "d":
                 accountToManage = getAccountFromAccounts();
@@ -146,11 +147,20 @@ public class PasswordManagerApp {
     }
 
     /*
-     * REQUIRES: name, username, and password must be longer than zero
+     * REQUIRES: account must be non null
      * MODIFIES: this
      * EFFECTS: Adds an account to the manager
      */
-    protected void addAccount() {
+    protected void addAccount(Account account) {
+        accounts.add(account);
+        System.out.println("Account successfully added!");
+    }
+
+    /*
+     * MODIFIES: this
+     * EFFECTS: Prompts user for new account info and instantiates new account
+     */
+    protected Account getNewAccountInfo() {
         System.out.println("What would you like to name the new account?");
         String name = getUserInput();
 
@@ -160,8 +170,7 @@ public class PasswordManagerApp {
         System.out.println("What is the password of the new account?");
         String password = getUserInput();
 
-        accounts.add(new Account(name, username, password));
-        System.out.println("Account successfully added!");
+        return new Account(name, username, password);
     }
 
     /*

@@ -20,12 +20,12 @@ public class PasswordManagerApp {
      * MODIFIES: this
      * EFFECTS: Processes user input
      */
-    private void runManager() {}
+    private void runManagerProcess() {}
 
     /*
      * EFFECTS: Displays menu of options to user
      */
-    private void displayMenu() {}
+    private void displayCommandMenu() {}
 
     /*
      * EFFECTS: Displays a list of all stored accounts to user
@@ -74,7 +74,7 @@ public class PasswordManagerApp {
      * MODIFIES: this, account
      * EFFECTS: Changes username for a specified account
      */
-    private void changeUsername(Account accountToChange){}
+    private void changeUsername(Account accountToChange) {}
 
     /*
      * REQUIRES: must not be null and must be in the list of accounts

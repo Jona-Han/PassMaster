@@ -40,7 +40,7 @@ public class PasswordManagerAppTest {
     void testProcessCommand() {}
 
     @Test
-    void testDisplaySpecificAccountInformation() {
+    void testViewSpecificAccountInformation() {
     }
 
     @Test

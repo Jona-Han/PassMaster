@@ -96,13 +96,35 @@ public class PasswordManagerApp {
      * EFFECTS: Processes user command and calls corresponding method
      */
     protected void processCommand(String command) {
-        //stub
+        Account accountToManage;
+        switch (command) {
+            case "v":
+                accountToManage = getAccountFromAccounts();
+                viewSpecificAccountInformation(accountToManage);
+                break;
+            case "a":
+                addAccount();
+                break;
+            case "d":
+                accountToManage = getAccountFromAccounts();
+                removeAccount(accountToManage);
+                break;
+        }
+    }
+
+    /*
+     * EFFECTS: Prompts the user for the number of the desired account and returns its index in accounts
+     */
+    protected Account getAccountFromAccounts() {
+        System.out.println("Which account number?");
+        String userInput = getUserInput();
+        return accounts.get(Integer.parseInt(userInput));
     }
 
     /*
      * EFFECTS: Displays information about a specific account stored in the manager
      */
-    protected void displaySpecificAccountInformation() {
+    protected void viewSpecificAccountInformation(Account account) {
         //stub
     }
 
@@ -111,7 +133,7 @@ public class PasswordManagerApp {
      * MODIFIES: this
      * EFFECTS: Adds an account to the password manager
      */
-    protected void addAccount(String name, String username, String password) {
+    protected void addAccount() {
         //stub
     }
 
@@ -120,7 +142,7 @@ public class PasswordManagerApp {
      * MODIFIES: this
      * EFFECTS: Removes an account from the password manager
      */
-    protected void removeAccount(int indexOfAccount) {
+    protected void removeAccount(Account account) {
         //stub
     }
 

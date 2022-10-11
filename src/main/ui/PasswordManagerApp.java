@@ -2,6 +2,7 @@ package ui;
 
 import model.Account;
 
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -133,10 +134,19 @@ public class PasswordManagerApp {
     /*
      * REQUIRES: name, username, and password must be longer than zero
      * MODIFIES: this
-     * EFFECTS: Adds an account to the password manager
+     * EFFECTS: Asks user for name, username, and password and adds an account to the manager
      */
     protected void addAccount() {
-        //stub
+        System.out.println("What would you like to name the new account?");
+        String name = getUserInput();
+
+        System.out.println("What is the username of the new account?");
+        String username = getUserInput();
+
+        System.out.println("What is the password of the new account?");
+        String password = getUserInput();
+
+        accounts.add(new Account(name, username, password));
     }
 
     /*

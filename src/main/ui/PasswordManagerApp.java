@@ -72,8 +72,8 @@ public class PasswordManagerApp {
      * EFFECTS: Displays menu of options to user
      */
     private void displayCommandMenu() {
-        System.out.println("\nMAIN MENU:\nv: View/Edit Account Information\na: Add Account\n" +
-                "d: Delete Account\nq: Quit");
+        System.out.println("\nMAIN MENU:\nv: View/Edit Account Information\na: Add Account\n"
+                + "d: Delete Account\nq: Quit");
     }
 
     /*
@@ -118,14 +118,16 @@ public class PasswordManagerApp {
     protected Account getAccountFromAccounts() {
         System.out.println("Which account number?");
         String userInput = getUserInput();
-        return accounts.get(Integer.parseInt(userInput));
+        int indexInAccounts = Integer.parseInt(userInput) - 1;
+        return accounts.get(indexInAccounts);
     }
 
     /*
      * EFFECTS: Displays information about a specific account stored in the manager
      */
     protected void viewSpecificAccountInformation(Account account) {
-        //stub
+        System.out.println(account.getName() + "-------------------------------\nUsername: "
+                + account.getUsername() + "\nPassword: " + account.getPassword());
     }
 
     /*

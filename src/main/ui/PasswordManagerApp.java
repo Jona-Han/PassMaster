@@ -43,7 +43,22 @@ public class PasswordManagerApp {
      */
     private void runManagerProcess() {
         init();
-        //stub
+
+        boolean running = true;
+        String userInput = null;
+
+        while (running) {
+            displayAllAccounts();
+            displayCommandMenu();
+            userInput = getUserInput();
+
+            if (userInput.equals("q")) {
+                running = false;
+            } else {
+                processCommand(userInput);
+            }
+        }
+        System.out.println("Good bye!");
     }
     /*
      * EFFECTS: Initializes list of accounts for testing
@@ -57,14 +72,15 @@ public class PasswordManagerApp {
      * EFFECTS: Displays menu of options to user
      */
     private void displayCommandMenu() {
-        //stub
+        System.out.println("\nMAIN MENU:\nv: View/Edit Account Information\na: Add Account\n" +
+                "d: Delete Account\nq: Quit");
     }
 
     /*
      * EFFECTS: Displays a list of all stored accounts to user
      */
     private void displayAllAccounts() {
-        //stub
+        System.out.println("....PLACEHOLDER LIST OF ACCOUNTS....");
     }
 
     /*

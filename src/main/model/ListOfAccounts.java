@@ -1,6 +1,17 @@
 package model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ListOfAccounts {
+    List<Account> accounts;
+
+    /*
+     * EFFECTS: Constructs an empty ListOfAccounts
+     */
+    public ListOfAccounts() {
+        accounts = new ArrayList<>();
+    }
 
     /*
      * REQUIRES: account is non-null

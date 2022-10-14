@@ -16,7 +16,7 @@ understand how this is done.
 
 ## 2. User Stories
 
-- As a user, I want to be able to log in using a master username and password.
+- As a user, I want to be able to log in using a master password.
 - As a user, I want to be able to see a list of accounts
 - As a user, I want to be able to add an account to my list of accounts
 - As a user, I want to be able to remove an account from my list of accounts

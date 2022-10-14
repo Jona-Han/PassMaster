@@ -6,7 +6,7 @@ import java.util.*;
 
 //Password Manager Application
 public class PasswordManagerApp {
-    List<Account> accounts;
+    protected List<Account> accounts;
 
     /*
      * EFFECTS: Starts the Password Manager App by initiating the login process
@@ -87,18 +87,10 @@ public class PasswordManagerApp {
     }
 
     /*
-     * EFFECTS: Gets user input from the keyboard and returns it
-     */
-    protected String getUserInput() {
-        Scanner input = new Scanner(System.in);
-        return input.nextLine();
-    }
-
-    /*
      * MODIFIES: this
      * EFFECTS: Processes user command and calls corresponding method
      */
-    protected void processCommand(String command) {
+    private void processCommand(String command) {
         Account accountToManage;
         command = command.toLowerCase();
         switch (command) {
@@ -124,7 +116,7 @@ public class PasswordManagerApp {
     /*
      * EFFECTS: Prompts the user for the number of the desired account and returns its index in accounts
      */
-    protected Account getAccountFromAccounts() {
+    private Account getAccountFromAccounts() {
         System.out.println("Which account number?");
         String userInput = getUserInput();
         int indexInAccounts = Integer.parseInt(userInput) - 1;
@@ -134,17 +126,9 @@ public class PasswordManagerApp {
     /*
      * EFFECTS: Displays information about a specific account stored in the manager
      */
-    protected void viewSpecificAccountInformation(Account account) {
+    private void viewSpecificAccountInformation(Account account) {
         System.out.println("\n" + account.getName() + "\nUsername: " + account.getUsername() + "\nPassword: "
                 + account.getPassword());
-    }
-
-    /*
-     * EFFECTS: Prompt user to press the Enter key to continue the application
-     */
-    protected void pressEnterToContinue() {
-        System.out.println("Press the Enter key to continue...");
-        getUserInput();
     }
 
     /*
@@ -161,7 +145,7 @@ public class PasswordManagerApp {
      * MODIFIES: this
      * EFFECTS: Prompts user for new account info and instantiates new account
      */
-    protected Account getNewAccountInfo() {
+    private Account getNewAccountInfo() {
         System.out.println("What would you like to name the new account?");
         String name = getUserInput();
 
@@ -179,7 +163,7 @@ public class PasswordManagerApp {
      * MODIFIES: this
      * EFFECTS: Removes an account from the password manager
      */
-    protected void removeAccount(Account account) {
+    private void removeAccount(Account account) {
         accounts.remove(account);
         System.out.println("Account successfully removed!");
     }
@@ -189,7 +173,7 @@ public class PasswordManagerApp {
      * MODIFIES: this, account
      * EFFECTS: Edits account information
      */
-    protected void editAccount(Account account) {
+    private void editAccount(Account account) {
         //stub
     }
 
@@ -209,5 +193,21 @@ public class PasswordManagerApp {
      */
     protected void changePassword(Account accountToChange) {
         //stub
+    }
+
+    /*
+     * EFFECTS: Gets user input from the keyboard and returns it
+     */
+    private String getUserInput() {
+        Scanner input = new Scanner(System.in);
+        return input.nextLine();
+    }
+
+    /*
+     * EFFECTS: Prompt user to press the Enter key to continue the application
+     */
+    private void pressEnterToContinue() {
+        System.out.println("Press the Enter key to continue...");
+        getUserInput();
     }
 }

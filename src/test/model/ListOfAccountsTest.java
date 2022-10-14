@@ -13,8 +13,8 @@ public class ListOfAccountsTest {
     private void setUp() {
         list = new ListOfAccounts();
         a = new Account("a", "usera", "passa");
-        b = new Account("a", "usera", "passa");
-        c = new Account("a", "usera", "passa");
+        b = new Account("b", "userb", "passb");
+        c = new Account("c", "userc", "passc");
 
         list.add(a);
         list.add(b);

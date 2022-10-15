@@ -48,8 +48,8 @@ public class CollectionOfAccountsTest {
 
     @Test
     void testAddSameObject() {
-        assertFalse(testCollection.add(a));
-        assertEquals(1, innerList.size());
+        assertTrue(testCollection.add(a));
+        assertEquals(2, innerList.size());
         assertTrue(innerList.contains(a));
     }
 

@@ -26,7 +26,7 @@ public class ListOfAccounts {
      * EFFECTS: adds an account to the ListOfAccounts, returns true if successfully added
      */
     public boolean add(Account account) {
-
+        return false;
     }
 
     /*

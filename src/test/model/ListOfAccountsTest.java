@@ -89,6 +89,16 @@ public class ListOfAccountsTest {
     }
 
     @Test
+    void testContainsTrue() {
+        assertTrue(testListOfAccounts.contains(a));
+    }
+
+    @Test
+    void testContainsFalse() {
+        assertFalse(testListOfAccounts.contains(b));
+    }
+
+    @Test
     void testGet() {
         assertEquals(a, actualInnerList.get(0));
     }

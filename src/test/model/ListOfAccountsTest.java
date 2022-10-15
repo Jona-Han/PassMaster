@@ -22,7 +22,7 @@ public class ListOfAccountsTest {
         c = new Account("c", "userc", "passc");
 
         testListOfAccounts = new ListOfAccounts(a);
-        List<Account> actualInnerList = testListOfAccounts.getInnerList();
+        actualInnerList = testListOfAccounts.getInnerList();
     }
 
     @Test

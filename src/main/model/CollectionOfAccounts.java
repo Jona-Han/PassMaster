@@ -22,15 +22,12 @@ public class CollectionOfAccounts {
     }
 
     /*
-     * REQUIRES: account is non-null and not already in the CollectionOfAccounts
+     * REQUIRES: account is non-null
      * MODIFIES: this
      * EFFECTS: adds an account to the CollectionOfAccounts, returns true if successfully added
      */
     public boolean add(Account account) {
-        if (!accounts.contains(account)) {
-            return accounts.add(account);
-        }
-        return false;
+        return accounts.add(account);
     }
 
     /*

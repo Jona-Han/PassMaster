@@ -26,6 +26,9 @@ public class ListOfAccounts {
      * EFFECTS: adds an account to the ListOfAccounts, returns true if successfully added
      */
     public boolean add(Account account) {
+        if (!accounts.contains(account)) {
+            return accounts.add(account);
+        }
         return false;
     }
 
@@ -35,16 +38,16 @@ public class ListOfAccounts {
      * EFFECTS: removes an Account account form ListOfAccounts, returns true if successfully removed
      */
     public boolean remove(Account account) {
-        return false;
+        return accounts.remove(account);
     }
 
     /*
      * REQUIRES: index >= 0
      * MODIFIES: this
-     * EFFECTS: removes an account at the specified index
+     * EFFECTS: removes an account at the specified index and returns that Account object
      */
-    public boolean remove(int index) {
-        return false;
+    public Account remove(int index) {
+        return accounts.remove(index);
     }
 
     /*

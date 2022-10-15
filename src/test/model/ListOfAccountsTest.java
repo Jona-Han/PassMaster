@@ -4,6 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
+import java.util.function.BooleanSupplier;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -78,14 +79,8 @@ public class ListOfAccountsTest {
 
     @Test
     void testRemoveIntegerParameterSucceed() {
-        assertTrue(testListOfAccounts.remove(0));
+        assertEquals(a, testListOfAccounts.remove(0));
         assertEquals(0, actualInnerList.size());
-    }
-
-    @Test
-    void testRemoveIntegerParameterFail() {
-        assertFalse(testListOfAccounts.remove(1));
-        assertEquals(1, actualInnerList.size());
     }
 
     @Test

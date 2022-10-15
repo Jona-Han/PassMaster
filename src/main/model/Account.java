@@ -44,14 +44,14 @@ public class Account {
     }
 
     public String getName() {
-        return name;    //stub
+        return name;
     }
 
     public String getUsername() {
-        return username;    //stub
+        return username;
     }
 
     public String getPassword() {
-        return password;    //stub
+        return password;
     }
 }

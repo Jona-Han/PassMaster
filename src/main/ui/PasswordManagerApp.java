@@ -1,12 +1,13 @@
 package ui;
 
 import model.Account;
+import model.CollectionOfAccounts;
 
 import java.util.*;
 
 //Password Manager Application
 public class PasswordManagerApp {
-    protected List<Account> accounts;
+    protected CollectionOfAccounts accounts;
 
     /*
      * EFFECTS: Starts the Password Manager App by initiating the login process
@@ -45,12 +46,11 @@ public class PasswordManagerApp {
         String userInput;
 
         while (running) {
-            System.out.println("\n");
             displayAllAccounts();
             displayCommandMenu();
             userInput = getUserInput();
 
-            if (userInput.equals("q")) {
+            if (userInput.equals("q") || userInput.equals("Q")) {
                 running = false;
             } else {
                 processCommand(userInput);
@@ -58,11 +58,12 @@ public class PasswordManagerApp {
         }
         System.out.println("Good bye!");
     }
+
     /*
-     * EFFECTS: Initializes list of accounts and adds 3 accounts for testing
+     * EFFECTS: Initializes empty collection of accounts
      */
     private void init() {
-        accounts = new ArrayList<>();
+        accounts = new CollectionOfAccounts();
     }
 
 
@@ -78,7 +79,7 @@ public class PasswordManagerApp {
      * EFFECTS: Displays a list of all stored accounts to user
      */
     private void displayAllAccounts() {
-        System.out.println("_____LIST OF ACCOUNTS_____");
+        System.out.println("\n_____LIST OF ACCOUNTS_____");
         System.out.format("%-10s %-1s", "Number:", "Account Name:");
         for (int index = 0; index < accounts.size(); index++) {
             System.out.format("%n %-10s %-1s", index + 1, accounts.get(index).getName());

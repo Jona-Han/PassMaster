@@ -3,19 +3,19 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ListOfAccounts {
+public class CollectionOfAccounts {
     List<Account> accounts;
 
     /*
      * EFFECTS: Constructs an empty ListOfAccounts
      */
-    public ListOfAccounts() {
+    public CollectionOfAccounts() {
         accounts = new ArrayList<>();
     }
     /*
      * EFFECTS: Constructs a new ListOfAccounts with an account
      */
-    public ListOfAccounts(Account account) {
+    public CollectionOfAccounts(Account account) {
         accounts = new ArrayList<>();
         accounts.add(account);
     }
@@ -55,14 +55,14 @@ public class ListOfAccounts {
      * EFFECTS: checks if there's an Account account in the ListOfAccounts and returns true if there is
      */
     public boolean contains(Account account) {
-        return true;
+        return accounts.contains(account);
     }
 
     /*
      * EFFECTS: returns the size of the ListOfAccounts
      */
     public int size() {
-        return 0;
+        return accounts.size();
     }
 
     /*

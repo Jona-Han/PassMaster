@@ -88,7 +88,7 @@ public class PasswordManagerApp {
     }
 
     /*
-     * MODIFIES: this
+     * MODIFIES: this, CollectionOfAccounts, Account
      * EFFECTS: Processes user command and calls corresponding method
      */
     private void processCommand(String command) {
@@ -110,7 +110,6 @@ public class PasswordManagerApp {
             default:
                 System.out.println("Command not valid. Please try again.");
         }
-        System.out.println("\n");
         pressEnterToContinue();
     }
 
@@ -133,8 +132,8 @@ public class PasswordManagerApp {
     }
 
     /*
-     * REQUIRES: account must be non null
-     * MODIFIES: this
+     * REQUIRES: account must be non-null
+     * MODIFIES: this, CollectionOfAccounts
      * EFFECTS: Adds an account to the manager
      */
     protected void addAccount(Account account) {
@@ -143,8 +142,7 @@ public class PasswordManagerApp {
     }
 
     /*
-     * MODIFIES: this
-     * EFFECTS: Prompts user for new account info and instantiates new account
+     * EFFECTS: Prompts user for new account info, instantiates new account, and returns it
      */
     private Account getNewAccountInfo() {
         System.out.println("What would you like to name the new account?");
@@ -160,8 +158,8 @@ public class PasswordManagerApp {
     }
 
     /*
-     * REQUIRES: 0 < index <= size of the list of accounts
-     * MODIFIES: this
+     * REQUIRES: account is non-null
+     * MODIFIES: this, CollectionOfAccounts
      * EFFECTS: Removes an account from the password manager
      */
     private void removeAccount(Account account) {
@@ -170,8 +168,8 @@ public class PasswordManagerApp {
     }
 
     /*
-     * REQUIRES: 0 < index <= size of the list of accounts
-     * MODIFIES: this, account
+     * REQUIRES: account is non-null
+     * MODIFIES: this, CollectionOfAccounts, Account
      * EFFECTS: Edits account information
      */
     private void editAccount(Account account) {
@@ -179,20 +177,20 @@ public class PasswordManagerApp {
     }
 
     /*
-     * REQUIRES: must not be null and must be in the list of accounts
+     * REQUIRES: account must not be null and must be in the list of accounts
      * MODIFIES: this, account
      * EFFECTS: Changes username for a specified account
      */
-    protected void changeUsername(Account accountToChange) {
+    protected void changeUsername(Account account) {
         //stub
     }
 
     /*
-     * REQUIRES: must not be null and must be in the list of accounts
+     * REQUIRES: account must not be null and must be in the list of accounts
      * MODIFIES: this, account
      * EFFECTS: Changes password for a specified account
      */
-    protected void changePassword(Account accountToChange) {
+    protected void changePassword(Account account) {
         //stub
     }
 

@@ -27,7 +27,7 @@ public class Account {
 
     /*
      * MODIFIES: this
-     * EFFECTS: changes the account's associated username
+     * EFFECTS: changes the account's associated username, assigns placeholder if passed in an empty array
      */
     public void setUsername(char[] username) {
         if (username.length == 0) {
@@ -40,7 +40,7 @@ public class Account {
 
     /*
      * MODIFIES: this
-     * EFFECTS: changes the account's associated password
+     * EFFECTS: changes the account's associated password, assigns placeholder if passed in an empty array
      */
     public void setPassword(char[] password) {
         if (password.length == 0) {

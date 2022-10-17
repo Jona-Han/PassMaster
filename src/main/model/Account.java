@@ -30,7 +30,12 @@ public class Account {
      * EFFECTS: changes the account's associated username
      */
     public void setUsername(char[] username) {
-        this.username = username;
+        if (username.length == 0) {
+            this.username = "_NO_VALUE_".toCharArray();
+        } else {
+            this.username = username;
+        }
+
     }
 
     /*
@@ -38,7 +43,11 @@ public class Account {
      * EFFECTS: changes the account's associated password
      */
     public void setPassword(char[] password) {
-        this.password = password;
+        if (password.length == 0) {
+            this.password = "_NO_VALUE_".toCharArray();
+        } else {
+            this.password = password;
+        }
     }
 
     public char[] getName() {

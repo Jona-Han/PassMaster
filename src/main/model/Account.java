@@ -1,5 +1,7 @@
 package model;
 
+import exceptions.EmptyNameException;
+
 //Represents an account with a name, a login username, and a login password
 public class Account {
     private char[] name;
@@ -10,7 +12,11 @@ public class Account {
      * REQUIRES: name must have non-zero length
      * EFFECTS: constructs an Account object with specified fields
      */
-    public Account(char[] name, char[] username, char[] password) {
+    public Account(char[] name, char[] username, char[] password) throws EmptyNameException {
+        if (name.length == 0) {
+            throw new EmptyNameException();
+        }
+
         this.name = name;
         if (username.length == 0) {
             this.username = "_NO_VALUE_".toCharArray();
@@ -25,11 +31,13 @@ public class Account {
     }
 
     /*
-     * REQUIRES: name must have non-zero length
      * MODIFIES: this
      * EFFECTS: changes the account's associated name
      */
-    public void setName(char[] name) {
+    public void setName(char[] name) throws EmptyNameException {
+        if (name.length == 0) {
+            throw new EmptyNameException();
+        }
         this.name = name;
     }
 

@@ -7,34 +7,43 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class AccountTest {
     Account account;
+    char[] name;
+    char[] username;
+    char[] password;
 
     @BeforeEach
     void setUp() {
-        account = new Account("Test Website", "test1", "password123");
+        name = "Test Website".toCharArray();
+        username = "test1".toCharArray();
+        password = "password123".toCharArray();
+        account = new Account(name, username, password);
     }
 
     @Test
     void testConstructorAndGetters() {
-        assertEquals("Test Website", account.getName());
-        assertEquals("test1", account.getUsername());
-        assertEquals("password123", account.getPassword());
+        assertEquals(name, account.getName());
+        assertEquals(username, account.getUsername());
+        assertEquals(password, account.getPassword());
     }
 
     @Test
     void testSetName() {
-        account.setName("New Name");
-        assertEquals("New Name", account.getName());
+        char[] newName = "New Name".toCharArray();
+        account.setName(newName);
+        assertEquals(newName, account.getName());
     }
 
     @Test
     void testSetUsername() {
-        account.setUsername("newUsername");
-        assertEquals("newUsername", account.getUsername());
+        char[] newUsername = "newUsername".toCharArray();
+        account.setUsername(newUsername);
+        assertEquals(newUsername, account.getUsername());
     }
 
     @Test
     void testSetPassword() {
-        account.setPassword("newPassword");
-        assertEquals("newPassword", account.getPassword());
+        char[] newPassword = "newPassword".toCharArray();
+        account.setPassword(newPassword);
+        assertEquals(newPassword, account.getPassword());
     }
 }

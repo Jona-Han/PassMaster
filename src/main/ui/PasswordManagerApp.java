@@ -138,6 +138,7 @@ public class PasswordManagerApp {
         printArray(account.getUsername());
         System.out.print("\nPassword: ");
         printArray(account.getPassword());
+        System.out.println();
     }
 
     /*
@@ -170,7 +171,7 @@ public class PasswordManagerApp {
      * EFFECTS: Prompts user for new account info, instantiates new account, and returns it
      */
     private Account getNewAccountInfo() {
-        System.out.println("What would you like to name the new account?");
+        System.out.println("\nWhat would you like to name the new account?");
         char[] name = getUserInput();
 
         System.out.println("What is the username of the new account?");
@@ -201,6 +202,7 @@ public class PasswordManagerApp {
         //Continue editing until user exits editing mode
         boolean editing = true;
         while (editing) {
+            viewSpecificAccountInformation(account);
             System.out.println("\nPlease enter the field you would like to change:\na: Name\t\tb: Username"
                     + "\t\tc: Password\t\td: Exit editing mode");
             String userInput = getUserInputString();

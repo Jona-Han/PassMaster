@@ -128,6 +128,4 @@ public class CollectionOfAccountsTest {
         assertEquals(b, testCollection.get(1));
         assertEquals(c, testCollection.get(2));
     }
-
-
 }

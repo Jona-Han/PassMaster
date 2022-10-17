@@ -21,23 +21,29 @@ class AccountTest {
 
     @Test
     void testConstructorAndGetters() {
-        assertEquals(name, account.getName());
-        assertEquals(username, account.getUsername());
-        assertEquals(password, account.getPassword());
+        char[] expectedName = "Test Website".toCharArray();
+        char[] expectedUsername = "test1".toCharArray();
+        char[] expectedPassword = "password123".toCharArray();
+
+        assertArrayEquals(expectedName, account.getName());
+        assertArrayEquals(expectedUsername, account.getUsername());
+        assertArrayEquals(expectedPassword, account.getPassword());
     }
 
     @Test
     void testSetName() {
         char[] newName = "New Name".toCharArray();
+        char[] expected = "New Name".toCharArray();
         account.setName(newName);
-        assertArrayEquals(newName, account.getName());
+        assertArrayEquals(expected, account.getName());
     }
 
     @Test
     void testSetUsername() {
         char[] newUsername = "newUsername".toCharArray();
+        char[] expected = "newUsername".toCharArray();
         account.setUsername(newUsername);
-        assertEquals(newUsername, account.getUsername());
+        assertArrayEquals(expected, account.getUsername());
     }
 
     @Test
@@ -51,8 +57,9 @@ class AccountTest {
     @Test
     void testSetPassword() {
         char[] newPassword = "newPassword".toCharArray();
+        char[] expected  = "newPassword".toCharArray();
         account.setPassword(newPassword);
-        assertEquals(newPassword, account.getPassword());
+        assertArrayEquals(expected, account.getPassword());
     }
 
     @Test

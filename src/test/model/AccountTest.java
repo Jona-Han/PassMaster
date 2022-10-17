@@ -30,7 +30,7 @@ class AccountTest {
     void testSetName() {
         char[] newName = "New Name".toCharArray();
         account.setName(newName);
-        assertEquals(newName, account.getName());
+        assertArrayEquals(newName, account.getName());
     }
 
     @Test
@@ -41,9 +41,25 @@ class AccountTest {
     }
 
     @Test
+    void testSetUsernameEmptyArray() {
+        char[] newUsername = new char[0];
+        char[] expected = "_NO_VALUE_".toCharArray();
+        account.setUsername(newUsername);
+        assertArrayEquals(expected, account.getUsername());
+    }
+
+    @Test
     void testSetPassword() {
         char[] newPassword = "newPassword".toCharArray();
         account.setPassword(newPassword);
         assertEquals(newPassword, account.getPassword());
+    }
+
+    @Test
+    void testSetPasswordEmptyArray() {
+        char[] newPassword = new char[0];
+        char[] expected = "_NO_VALUE_".toCharArray();
+        account.setPassword(newPassword);
+        assertArrayEquals(expected, account.getPassword());
     }
 }

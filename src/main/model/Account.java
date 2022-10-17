@@ -26,7 +26,6 @@ public class Account {
     }
 
     /*
-     * REQUIRES: username must have non-zero length
      * MODIFIES: this
      * EFFECTS: changes the account's associated username
      */
@@ -35,7 +34,6 @@ public class Account {
     }
 
     /*
-     * REQUIRES: password must have non-zero length
      * MODIFIES: this
      * EFFECTS: changes the account's associated password
      */

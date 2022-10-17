@@ -56,7 +56,7 @@ public class PasswordManagerApp {
                 processCommand(userInput);
             }
         }
-        System.out.println("Good bye!");
+        System.out.println("\nGood bye!");
     }
 
     /*
@@ -76,15 +76,18 @@ public class PasswordManagerApp {
     }
 
     /*
-     * EFFECTS: Displays a list of all stored accounts to user
+     * EFFECTS: Displays a list of all stored accounts to user%-1s
      */
     private void displayAllAccounts() {
         System.out.println("\n_____LIST OF ACCOUNTS_____");
+
+        //SOURCE: https://docs.oracle.com/javase/7/docs/api/java/util/Formatter.html
         System.out.format("%-10s %-1s", "Number:", "Account Name:");
         for (int index = 0; index < accounts.size(); index++) {
-            System.out.format("%n %-10s %-1s", index + 1, Arrays.toString(accounts.get(index).getName()));
+            System.out.format("%n %-10s", index + 1);
+            printArray(accounts.get(index).getName());
         }
-        System.out.println("\n");
+        System.out.println();
     }
 
     /*
@@ -98,6 +101,7 @@ public class PasswordManagerApp {
             case "v":
                 accountToManage = getAccountFromAccounts();
                 viewSpecificAccountInformation(accountToManage);
+                promptUserToEnterEditingMode(accountToManage);
                 break;
             case "a":
                 accountToManage = getNewAccountInfo();
@@ -117,7 +121,7 @@ public class PasswordManagerApp {
      * EFFECTS: Prompts the user for the number of the desired account and returns its index in accounts
      */
     private Account getAccountFromAccounts() {
-        System.out.println("Which account number?");
+        System.out.println("\nWhich account number?");
         String userInput = getUserInputString();
         int indexInAccounts = Integer.parseInt(userInput) - 1;
         return accounts.get(indexInAccounts);
@@ -127,9 +131,30 @@ public class PasswordManagerApp {
      * EFFECTS: Displays information about a specific account stored in the manager
      */
     private void viewSpecificAccountInformation(Account account) {
-        System.out.println("\n" + account.getName() + "\nUsername: " + account.getUsername() + "\nPassword: "
-                + account.getPassword());
+        //Print account information
+        System.out.println();
+        printArray(account.getName());
+        System.out.print("\nUsername: ");
+        printArray(account.getUsername());
+        System.out.print("\nPassword: ");
+        printArray(account.getPassword());
     }
+
+    /*
+     * REQUIRES: account must be non-null
+     * MODIFIES: this, CollectionOfAccounts, account
+     * EFFECTS: Displays information about a specific account stored in the manager
+     */
+    private void promptUserToEnterEditingMode(Account account) {
+        //Ask user if they would like to edit the account
+        System.out.println("\nWould you like to edit this account? (y/n)");
+        String userInput = getUserInputString();
+
+        if (userInput.equals("y") || userInput.equals("Y")) {
+            editAccount(account);
+        }
+    }
+
 
     /*
      * REQUIRES: account must be non-null
@@ -138,7 +163,7 @@ public class PasswordManagerApp {
      */
     protected void addAccount(Account account) {
         accounts.add(account);
-        System.out.println("Account successfully added!");
+        System.out.println("\nAccount successfully added!");
     }
 
     /*
@@ -164,7 +189,7 @@ public class PasswordManagerApp {
      */
     private void removeAccount(Account account) {
         accounts.remove(account);
-        System.out.println("Account successfully removed!");
+        System.out.println("\nAccount successfully removed!");
     }
 
     /*
@@ -173,7 +198,47 @@ public class PasswordManagerApp {
      * EFFECTS: Edits account information
      */
     private void editAccount(Account account) {
-        //stub
+        //Continue editing until user exits editing mode
+        boolean editing = true;
+        while (editing) {
+            System.out.println("\nPlease enter the field you would like to change:\na: Name\t\tb: Username"
+                    + "\t\tc: Password\t\td: Exit editing mode");
+            String userInput = getUserInputString();
+            //Change name if "a", change username if "b", change password if "c"
+            switch (userInput) {
+                case "a":
+                case "A":
+                    changeName(account);
+                    break;
+                case "b":
+                case "B":
+                    changeUsername(account);
+                    break;
+                case "c":
+                case "C":
+                    changePassword(account);
+                    break;
+                default:
+                    editing = false;
+            }
+        }
+    }
+
+    /*
+     * REQUIRES: account must not be null and must be in the list of accounts
+     * MODIFIES: this, account
+     * EFFECTS: Changes name for a specified account
+     */
+    protected void changeName(Account account) {
+        //Print out prompt and get user input
+        System.out.print("\nWhat would you like to change the name to?\nCurrently: ");
+        printArray(account.getName());
+        System.out.println();
+        char[] userInput = getUserInput();
+
+        //Change name
+        account.setName(userInput);
+        System.out.println("Name successfully changed!");
     }
 
     /*
@@ -182,7 +247,15 @@ public class PasswordManagerApp {
      * EFFECTS: Changes username for a specified account
      */
     protected void changeUsername(Account account) {
-        //stub
+        //Print out prompt and get user input
+        System.out.print("\nWhat would you like to change the username to?\nCurrently: ");
+        printArray(account.getUsername());
+        System.out.println();
+        char[] userInput = getUserInput();
+
+        //Change username
+        account.setUsername(userInput);
+        System.out.println("Username successfully changed!");
     }
 
     /*
@@ -191,7 +264,16 @@ public class PasswordManagerApp {
      * EFFECTS: Changes password for a specified account
      */
     protected void changePassword(Account account) {
-        //stub
+        //Print out prompt and get user input
+        System.out.print("\nWhat would you like to change the password to?\nCurrently: ");
+        printArray(account.getPassword());
+        System.out.println();
+
+        char[] userInput = getUserInput();
+
+        //Change password
+        account.setPassword(userInput);
+        System.out.println("Password successfully changed!");
     }
 
     /*
@@ -217,5 +299,14 @@ public class PasswordManagerApp {
     private void pressEnterToContinue() {
         System.out.println("Press the Enter key to continue...");
         getUserInput();
+    }
+
+    /*
+     * EFFECTS: Prints the contents of an array
+     */
+    private void printArray(char[] array) {
+        for (char ch : array) {
+            System.out.print(ch);
+        }
     }
 }

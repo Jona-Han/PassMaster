@@ -16,13 +16,18 @@ public class CollectionOfAccountsTest {
 
     @BeforeEach
     void setUp() {
-        a = new Account("a", "usera", "passa");
-        b = new Account("b", "userb", "passb");
-        c = new Account("c", "userc", "passc");
+        a = createNewAccountFromStrings("a", "userA", "passA");
+        b = createNewAccountFromStrings("b", "userB", "passB");
+        c = createNewAccountFromStrings("c", "userC", "passC");
 
         testCollection = new CollectionOfAccounts(a);
         innerList = testCollection.getInnerList();
     }
+
+    private Account createNewAccountFromStrings(String name, String username, String password) {
+        return new Account(name.toCharArray(), username.toCharArray(), password.toCharArray());
+    }
+
 
     @Test
     void testEmptyConstructor() {

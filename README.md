@@ -22,8 +22,5 @@ understand how this is done.
 - As a user, I want to be able to remove an account from my list of accounts
 - As a user, I want to be able to edit the username and password of an account
 - As a user, I want to be able to organize accounts into folders
-- As a user, I want to be able to log in using a different master username and password and see a different list of
-  accounts
-- As a user, I want to be able to generate a random password when I edit an account's password
 - As a user, I want to be able to not worry about someone knowing my stored information without logging in using my 
   master username and password

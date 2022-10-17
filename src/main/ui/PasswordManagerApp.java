@@ -26,7 +26,7 @@ public class PasswordManagerApp {
 
         while (running) {
             System.out.println("Please enter your password: ");
-            String input = getUserInput();
+            String input = getUserInputString();
 
             if (Objects.equals(input, password)) {
                 running = false;
@@ -48,7 +48,7 @@ public class PasswordManagerApp {
         while (running) {
             displayAllAccounts();
             displayCommandMenu();
-            userInput = getUserInput();
+            userInput = getUserInputString();
 
             if (userInput.equals("q") || userInput.equals("Q")) {
                 running = false;
@@ -82,7 +82,7 @@ public class PasswordManagerApp {
         System.out.println("\n_____LIST OF ACCOUNTS_____");
         System.out.format("%-10s %-1s", "Number:", "Account Name:");
         for (int index = 0; index < accounts.size(); index++) {
-            System.out.format("%n %-10s %-1s", index + 1, accounts.get(index).getName());
+            System.out.format("%n %-10s %-1s", index + 1, Arrays.toString(accounts.get(index).getName()));
         }
         System.out.println("\n");
     }
@@ -118,7 +118,7 @@ public class PasswordManagerApp {
      */
     private Account getAccountFromAccounts() {
         System.out.println("Which account number?");
-        String userInput = getUserInput();
+        String userInput = getUserInputString();
         int indexInAccounts = Integer.parseInt(userInput) - 1;
         return accounts.get(indexInAccounts);
     }
@@ -146,13 +146,13 @@ public class PasswordManagerApp {
      */
     private Account getNewAccountInfo() {
         System.out.println("What would you like to name the new account?");
-        String name = getUserInput();
+        char[] name = getUserInput();
 
         System.out.println("What is the username of the new account?");
-        String username = getUserInput();
+        char[] username = getUserInput();
 
         System.out.println("What is the password of the new account?");
-        String password = getUserInput();
+        char[] password = getUserInput();
 
         return new Account(name, username, password);
     }
@@ -195,9 +195,18 @@ public class PasswordManagerApp {
     }
 
     /*
-     * EFFECTS: Gets user input from the keyboard and returns it
+     * EFFECTS: Gets user input from the keyboard and returns it as a char array
+     * Primarily for securely collecting username and passwords
      */
-    private String getUserInput() {
+    private char[] getUserInput() {
+        Scanner input = new Scanner(System.in);
+        return input.nextLine().toCharArray();
+    }
+
+    /*
+     * EFFECTS: Gets user input from the keyboard and returns it as a string
+     */
+    private String getUserInputString() {
         Scanner input = new Scanner(System.in);
         return input.nextLine();
     }

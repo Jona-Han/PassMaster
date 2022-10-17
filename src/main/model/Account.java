@@ -2,15 +2,15 @@ package model;
 
 //Represents an account with a name, a login username, and a login password
 public class Account {
-    private String name;
-    private String username;
-    private String password;
+    private char[] name;
+    private char[] username;
+    private char[] password;
 
     /*
-     * REQUIRES: accountName and accountPassword have non-zero length
+     * REQUIRES: name must have non-zero length
      * EFFECTS: constructs an Account object with specified fields
      */
-    public Account(String name, String username, String password) {
+    public Account(char[] name, char[] username, char[] password) {
         this.name = name;
         this.username = username;
         this.password = password;
@@ -21,7 +21,7 @@ public class Account {
      * MODIFIES: this
      * EFFECTS: changes the account's associated name
      */
-    public void setName(String name) {
+    public void setName(char[] name) {
         this.name = name;
     }
 
@@ -29,7 +29,7 @@ public class Account {
      * MODIFIES: this
      * EFFECTS: changes the account's associated username
      */
-    public void setUsername(String username) {
+    public void setUsername(char[] username) {
         this.username = username;
     }
 
@@ -37,19 +37,19 @@ public class Account {
      * MODIFIES: this
      * EFFECTS: changes the account's associated password
      */
-    public void setPassword(String password) {
+    public void setPassword(char[] password) {
         this.password = password;
     }
 
-    public String getName() {
+    public char[] getName() {
         return name;
     }
 
-    public String getUsername() {
+    public char[] getUsername() {
         return username;
     }
 
-    public String getPassword() {
+    public char[] getPassword() {
         return password;
     }
 }

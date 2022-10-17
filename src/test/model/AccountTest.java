@@ -20,7 +20,7 @@ class AccountTest {
     }
 
     @Test
-    void testConstructorAndGetters() {
+    void testConstructorNoneEmptyArray() {
         char[] expectedName = "Test Website".toCharArray();
         char[] expectedUsername = "test1".toCharArray();
         char[] expectedPassword = "password123".toCharArray();
@@ -29,6 +29,33 @@ class AccountTest {
         assertArrayEquals(expectedUsername, account.getUsername());
         assertArrayEquals(expectedPassword, account.getPassword());
     }
+
+    @Test
+    void testConstructorEmptyUsernameArray() {
+        char[] expectedName = "Test Website".toCharArray();
+        char[] expectedUsername = "_NO_VALUE_".toCharArray();
+        char[] expectedPassword = "password123".toCharArray();
+
+        account = new Account("Test Website".toCharArray(), new char[0], "password123".toCharArray());
+
+        assertArrayEquals(expectedName, account.getName());
+        assertArrayEquals(expectedUsername, account.getUsername());
+        assertArrayEquals(expectedPassword, account.getPassword());
+    }
+
+    @Test
+    void testConstructorEmptyPasswordArray() {
+        char[] expectedName = "Test Website".toCharArray();
+        char[] expectedUsername = "test1".toCharArray();
+        char[] expectedPassword = "_NO_VALUE_".toCharArray();
+
+        account = new Account("Test Website".toCharArray(), "test1".toCharArray(), new char[0]);
+
+        assertArrayEquals(expectedName, account.getName());
+        assertArrayEquals(expectedUsername, account.getUsername());
+        assertArrayEquals(expectedPassword, account.getPassword());
+    }
+
 
     @Test
     void testSetName() {

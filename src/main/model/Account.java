@@ -12,8 +12,16 @@ public class Account {
      */
     public Account(char[] name, char[] username, char[] password) {
         this.name = name;
-        this.username = username;
-        this.password = password;
+        if (username.length == 0) {
+            this.username = "_NO_VALUE_".toCharArray();
+        } else {
+            this.username = username;
+        }
+        if (password.length == 0) {
+            this.password = "_NO_VALUE_".toCharArray();
+        } else {
+            this.password = password;
+        }
     }
 
     /*

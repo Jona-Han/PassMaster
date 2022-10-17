@@ -16,7 +16,7 @@ understand how this is done.
 
 ## 2. User Stories
 
-- As a user, I want to be able to log in using a master password.
+- As a user, I want to be able to log in using a master password which is stored as a file
 - As a user, I want to be able to see a list of accounts
 - As a user, I want to be able to add an account to my list of accounts
 - As a user, I want to be able to remove an account from my list of accounts
@@ -24,3 +24,5 @@ understand how this is done.
 - As a user, I want to be able to organize accounts into folders
 - As a user, I want to be able to not worry about someone knowing my stored information without logging in using my 
   master username and password
+- As a user, I want to be able to save my account information to file automatically
+- As a user, I want to load my account information from file once I log in

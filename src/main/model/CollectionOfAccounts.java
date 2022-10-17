@@ -19,11 +19,7 @@ public class CollectionOfAccounts {
     /*
      * EFFECTS: Constructs a new CollectionOfAccounts with an account
      */
-    public CollectionOfAccounts(Account account) throws NullAccountException {
-        if (account == null) {
-            throw new NullAccountException();
-        }
-
+    public CollectionOfAccounts(Account account) {
         accounts = new ArrayList<>();
         accounts.add(account);
     }
@@ -32,10 +28,7 @@ public class CollectionOfAccounts {
      * MODIFIES: this
      * EFFECTS: adds an account to the CollectionOfAccounts, returns true if successfully added
      */
-    public boolean add(Account account) throws NullAccountException {
-        if (account == null) {
-            throw new NullAccountException();
-        }
+    public boolean add(Account account) {
         return accounts.add(account);
     }
 

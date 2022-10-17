@@ -1,5 +1,7 @@
 package ui;
 
+import exceptions.CollectionIndexOutOfBoundsException;
+import exceptions.NullAccountException;
 import model.Account;
 import model.CollectionOfAccounts;
 
@@ -48,7 +50,11 @@ public class PasswordManagerApp {
 
         //Main loop
         while (running) {
-            displayAllAccounts();
+            try {
+                displayAllAccounts();
+            } catch (CollectionIndexOutOfBoundsException e) {
+                System.out.println("ERROR: INDEX REFERENCED OUT OF BOUNDS");
+            }
             displayCommandMenu();
             userInput = getUserInputString();
 
@@ -80,7 +86,7 @@ public class PasswordManagerApp {
     /*
      * EFFECTS: Displays a list of all stored accounts to user
      */
-    private void displayAllAccounts() {
+    private void displayAllAccounts() throws CollectionIndexOutOfBoundsException {
         System.out.println("\n_____LIST OF ACCOUNTS_____");
 
         //SOURCE: https://docs.oracle.com/javase/7/docs/api/java/util/Formatter.html
@@ -99,23 +105,18 @@ public class PasswordManagerApp {
      * EFFECTS: Processes user command and calls corresponding method
      */
     private void processCommand(String command) {
-        Account accountToManage;
         command = command.toLowerCase();
 
         // v for view/edit, a for add account, d for remove account
         switch (command) {
             case "v":
-                accountToManage = getAccountFromAccounts();
-                viewSpecificAccountInformation(accountToManage);
-                promptUserToEnterEditingMode(accountToManage);
+                runViewAccountProcess();
                 break;
             case "a":
-                accountToManage = getNewAccountInfo();
-                addAccount(accountToManage);
+                runAddAccountProcess();
                 break;
             case "d":
-                accountToManage = getAccountFromAccounts();
-                removeAccount(accountToManage);
+                runRemoveAccountProcess();
                 break;
             default:
                 System.out.println("Command not valid. Please try again.");
@@ -124,10 +125,52 @@ public class PasswordManagerApp {
     }
 
     /*
-     * REQUIRES: accounts.size() > 0, 0 <= userInput/indexInAccounts < accounts.size()
+     * MODIFIES: this, CollectionOfAccounts, Account
+     * EFFECTS: Processes user command and calls corresponding method
+     */
+    private void runViewAccountProcess() {
+        try {
+            Account accountToManage;
+            accountToManage = getAccountFromAccounts();
+            viewSpecificAccountInformation(accountToManage);
+            promptUserToEnterEditingMode(accountToManage);
+        } catch (CollectionIndexOutOfBoundsException e) {
+            System.out.println("Invalid account selection. Please choose a valid account number.");
+        } catch (NullAccountException e) {
+            System.out.println("ERROR: Account does not exist.");
+        }
+    }
+
+    /*
+     * MODIFIES: this, CollectionOfAccounts, Account
+     * EFFECTS: Processes user command and calls corresponding method
+     */
+    private void runAddAccountProcess() {
+        Account accountToManage;
+        accountToManage = getNewAccountInfo();
+        addAccount(accountToManage);
+    }
+
+    /*
+     * MODIFIES: this, CollectionOfAccounts, Account
+     * EFFECTS: Processes user command and calls corresponding method
+     */
+    private void runRemoveAccountProcess() {
+        Account accountToManage;
+        try {
+            accountToManage = getAccountFromAccounts();
+            removeAccount(accountToManage);
+        } catch (CollectionIndexOutOfBoundsException e) {
+            System.out.println("Invalid account selection. Please choose a valid account number.");
+        } catch (NullAccountException e) {
+            System.out.println("ERROR: Account does not exist.");
+        }
+    }
+
+    /*
      * EFFECTS: Prompts the user for the number of the desired account and returns the account at that position
      */
-    private Account getAccountFromAccounts() {
+    private Account getAccountFromAccounts() throws CollectionIndexOutOfBoundsException {
         System.out.println("\nWhich account number?");
         String userInput = getUserInputString();
         int indexInAccounts = Integer.parseInt(userInput) - 1;  //Converts user input into an integer
@@ -135,7 +178,6 @@ public class PasswordManagerApp {
     }
 
     /*
-     * REQUIRES: accounts.size() > 0
      * EFFECTS: Displays information about a specific account stored in the manager
      */
     private void viewSpecificAccountInformation(Account account) {
@@ -150,11 +192,14 @@ public class PasswordManagerApp {
     }
 
     /*
-     * REQUIRES: account must be non-null
      * MODIFIES: this, CollectionOfAccounts, Account
      * EFFECTS: Asks user and enters editing mode if yes answer is given
      */
-    private void promptUserToEnterEditingMode(Account account) {
+    private void promptUserToEnterEditingMode(Account account) throws NullAccountException {
+        if (account == null) {
+            throw new NullAccountException();
+        }
+
         //Ask user if they would like to edit the account
         System.out.println("\nWould you like to edit this account? (y/n)");
         String userInput = getUserInputString();
@@ -167,7 +212,6 @@ public class PasswordManagerApp {
 
 
     /*
-     * REQUIRES: account must be non-null
      * MODIFIES: this, CollectionOfAccounts
      * EFFECTS: Adds an account to the manager
      */
@@ -177,12 +221,21 @@ public class PasswordManagerApp {
     }
 
     /*
-     * REQUIRES: name must have non-zero length
      * EFFECTS: Asks user for new account info, instantiates new account, and returns it
      */
     private Account getNewAccountInfo() {
-        System.out.println("\nWhat would you like to name the new account?");
-        char[] name = getUserInput();
+        char[] name;
+        while (true) {
+            System.out.println("\nWhat would you like to name the new account?");
+            name = getUserInput();
+
+            //Check for blank name and break out of loop if the name is not empty
+            if (name.length == 0) {
+                System.out.println("Sorry, name cannot be left blank. Please try again.");
+            } else {
+                break;
+            }
+        }
 
         System.out.println("What is the username of the new account?");
         char[] username = getUserInput();
@@ -194,17 +247,15 @@ public class PasswordManagerApp {
     }
 
     /*
-     * REQUIRES: account is non-null and must be in accounts
      * MODIFIES: this, CollectionOfAccounts
      * EFFECTS: Removes an account from the password manager
      */
-    private void removeAccount(Account account) {
+    private void removeAccount(Account account) throws NullAccountException {
         accounts.remove(account);
         System.out.println("\nAccount successfully removed!");
     }
 
     /*
-     * REQUIRES: account is non-null and must be in accounts
      * MODIFIES: this, CollectionOfAccounts, Account
      * EFFECTS: Asks user what they would like to edit and calls appropriate method
      */
@@ -237,16 +288,25 @@ public class PasswordManagerApp {
     }
 
     /*
-     * REQUIRES: account must be non-null and must be in accounts
      * MODIFIES: this, CollectionOfAccounts Account
      * EFFECTS: Changes name for a specified account
      */
     private void changeName(Account account) {
-        //Print out prompt and get user input
-        System.out.print("\nWhat would you like to change the name to?\nCurrently: ");
-        printArray(account.getName());
-        System.out.println();
-        char[] userInput = getUserInput();
+        //Get user input and check that it isn't blank
+        char[] userInput;
+        while (true) {
+            System.out.print("\nWhat would you like to change the name to?\nCurrently: ");
+            printArray(account.getName());
+            System.out.println();
+            userInput = getUserInput();
+
+            //Check for blank name
+            if (userInput.length == 0) {
+                System.out.println("Sorry, name cannot be left blank. Please try again.");
+            } else {
+                break;
+            }
+        }
 
         //Change name
         account.setName(userInput);
@@ -254,7 +314,6 @@ public class PasswordManagerApp {
     }
 
     /*
-     * REQUIRES: account must be non-null and must be in accounts
      * MODIFIES: this, account
      * EFFECTS: Changes username for a specified account
      */
@@ -271,7 +330,6 @@ public class PasswordManagerApp {
     }
 
     /*
-     * REQUIRES: account must be non-null and must be in the list of accounts
      * MODIFIES: this, account
      * EFFECTS: Changes password for a specified account
      */

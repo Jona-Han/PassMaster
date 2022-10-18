@@ -288,7 +288,7 @@ public class PasswordManagerApp {
     }
 
     /*
-     * MODIFIES: this, CollectionOfAccounts Account
+     * MODIFIES: this, CollectionOfAccounts, Account
      * EFFECTS: Changes name for a specified account
      */
     private void changeName(Account account) {

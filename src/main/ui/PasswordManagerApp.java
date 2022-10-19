@@ -49,11 +49,7 @@ public class PasswordManagerApp {
 
         //Main loop
         while (running) {
-            try {
-                displayAllAccounts();
-            } catch (CollectionIndexOutOfBoundsException e) {
-                System.out.println("ERROR: INDEX REFERENCED OUT OF BOUNDS");
-            }
+            displayAllAccounts();
             displayCommandMenu();
             userInput = getUserInputString();
 
@@ -85,7 +81,7 @@ public class PasswordManagerApp {
     /*
      * EFFECTS: Displays a list of all stored accounts to user
      */
-    private void displayAllAccounts() throws CollectionIndexOutOfBoundsException {
+    private void displayAllAccounts() {
         System.out.println("\n_____LIST OF ACCOUNTS_____");
 
         //SOURCE: https://docs.oracle.com/javase/7/docs/api/java/util/Formatter.html

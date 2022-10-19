@@ -1,4 +1,4 @@
 package exceptions;
 
-public class CollectionIndexOutOfBoundsException extends Exception {
+public class CollectionIndexOutOfBoundsException extends RuntimeException {
 }

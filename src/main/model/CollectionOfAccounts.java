@@ -1,6 +1,7 @@
 package model;
 
 import exceptions.CollectionIndexOutOfBoundsException;
+import exceptions.NullAccountException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,9 +36,9 @@ public class CollectionOfAccounts {
      * MODIFIES: this
      * EFFECTS: removes an Account object from CollectionOfAccounts, returns true if successfully removed
      */
-    public boolean remove(Account account) {
+    public boolean remove(Account account) throws NullAccountException {
         if (account == null) {
-            throw new NullPointerException();
+            throw new NullAccountException();
         }
         return accounts.remove(account);
     }
@@ -56,9 +57,9 @@ public class CollectionOfAccounts {
     /*
      * EFFECTS: checks if there's an Account object in the CollectionOfAccounts and returns true if there is
      */
-    public boolean contains(Account account) {
+    public boolean contains(Account account) throws NullAccountException {
         if (account == null) {
-            throw new NullPointerException();
+            throw new NullAccountException();
         }
         return accounts.contains(account);
     }

@@ -1,6 +1,7 @@
 package ui;
 
 import exceptions.CollectionIndexOutOfBoundsException;
+import exceptions.NullAccountException;
 import model.Account;
 import model.CollectionOfAccounts;
 
@@ -135,6 +136,8 @@ public class PasswordManagerApp {
             promptUserToEnterEditingMode(accountToManage);
         } catch (CollectionIndexOutOfBoundsException e) {
             System.out.println("Invalid account selection. Please choose a valid account number.");
+        } catch (NullAccountException e) {
+            System.out.println("ERROR: Account does not exist.");
         }
     }
 
@@ -159,6 +162,8 @@ public class PasswordManagerApp {
             removeAccount(accountToManage);
         } catch (CollectionIndexOutOfBoundsException e) {
             System.out.println("Invalid account selection. Please choose a valid account number.");
+        } catch (NullAccountException e) {
+            System.out.println("ERROR: Account does not exist.");
         }
     }
 
@@ -190,7 +195,11 @@ public class PasswordManagerApp {
      * MODIFIES: this, CollectionOfAccounts, Account
      * EFFECTS: Asks user and enters editing mode if yes answer is given
      */
-    private void promptUserToEnterEditingMode(Account account) {
+    private void promptUserToEnterEditingMode(Account account) throws NullAccountException {
+        if (account == null) {
+            throw new NullAccountException();
+        }
+
         //Ask user if they would like to edit the account
         System.out.println("\nWould you like to edit this account? (y/n)");
         String userInput = getUserInputString();
@@ -241,7 +250,7 @@ public class PasswordManagerApp {
      * MODIFIES: this, CollectionOfAccounts
      * EFFECTS: Removes an account from the password manager
      */
-    private void removeAccount(Account account) {
+    private void removeAccount(Account account) throws NullAccountException {
         accounts.remove(account);
         System.out.println("\nAccount successfully removed!");
     }

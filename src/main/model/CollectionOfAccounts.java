@@ -1,11 +1,14 @@
 package model;
 
 import exceptions.CollectionIndexOutOfBoundsException;
+import org.json.JSONArray;
+import org.json.JSONObject;
+import persistence.Writable;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class CollectionOfAccounts {
+public class CollectionOfAccounts implements Writable {
     List<Account> accounts;
 
     /*
@@ -85,5 +88,27 @@ public class CollectionOfAccounts {
      */
     public List<Account> getInnerList() {
         return accounts;
+    }
+
+    /*
+     * EFFECTS: returns the inner list. Primarily just for testing
+     */
+    @Override
+    public JSONObject toJSON() {
+        JSONObject json = new JSONObject();
+        json.put("accounts", accountsToJson());
+        return json;
+    }
+
+    /*
+     * EFFECTS: returns the accounts in this collection as a JSON Array
+     */
+    private JSONArray accountsToJson() {
+        JSONArray json = new JSONArray();
+
+        for (Account account : accounts) {
+            json.put(account.toJSON());
+        }
+        return json;
     }
 }

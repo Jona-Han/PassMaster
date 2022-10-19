@@ -1,7 +1,10 @@
 package model;
 
+import org.json.JSONObject;
+import persistence.Writable;
+
 //Represents an account with a name, a login username, and a login password
-public class Account {
+public class Account implements Writable {
     private char[] name;
     private char[] username;
     private char[] password;
@@ -66,5 +69,17 @@ public class Account {
 
     public char[] getPassword() {
         return password;
+    }
+
+    /*
+     * EFFECTS: Returns a Json version of this
+     */
+    @Override
+    public JSONObject toJSON() {
+        JSONObject json = new JSONObject();
+        json.put("name", name);
+        json.put("username", username);
+        json.put("password", password);
+        return json;
     }
 }

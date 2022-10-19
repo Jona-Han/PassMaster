@@ -1,4 +1,4 @@
 package exceptions;
 
-public class NullAccountException extends Exception{
+public class NullAccountException extends RuntimeException{
 }

@@ -95,7 +95,7 @@ public class CollectionOfAccounts implements Writable {
      * EFFECTS: returns the inner list. Primarily just for testing
      */
     @Override
-    public JSONObject toJSON() {
+    public JSONObject toJson() {
         JSONObject json = new JSONObject();
         json.put("accounts", accountsToJson());
         return json;
@@ -108,7 +108,7 @@ public class CollectionOfAccounts implements Writable {
         JSONArray json = new JSONArray();
 
         for (Account account : accounts) {
-            json.put(account.toJSON());
+            json.put(account.toJson());
         }
         return json;
     }

@@ -41,7 +41,7 @@ public class JsonWriter {
      * EFFECTS: Writes the Json representation of CollectionOfAccounts to the file system
      */
     public void write(CollectionOfAccounts collection) {
-        JSONObject json = collection.toJSON();
+        JSONObject json = collection.toJson();
         saveToFile(json.toString(TAB));
     }
 

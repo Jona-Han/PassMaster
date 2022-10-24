@@ -24,7 +24,7 @@ public class JsonWriter {
      * MODIFIES: this
      * EFFECTS: Opens a new writer and throws an account failed to open exception if path is not valid
      */
-    public void open(String path) throws FileNotFoundException {
+    public void open() throws FileNotFoundException {
         writer = new PrintWriter(new File(path));
     }
 

@@ -4,11 +4,20 @@ import exceptions.CollectionIndexOutOfBoundsException;
 import exceptions.NullAccountException;
 import model.Account;
 import model.CollectionOfAccounts;
+import org.json.JSONObject;
+import persistence.JsonReader;
+import persistence.JsonWriter;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.*;
 
 //Password Manager Application
 public class PasswordManagerApp {
+    private static final String JSON_STORE = "./data/data.json";
+    private JsonWriter jsonWriter;
+    private JsonReader jsonReader;
+
     protected CollectionOfAccounts accounts;
 
     /*
@@ -72,6 +81,8 @@ public class PasswordManagerApp {
      */
     private void init() {
         accounts = new CollectionOfAccounts();
+        jsonWriter = new JsonWriter(JSON_STORE);
+        jsonReader = new JsonReader(JSON_STORE);
     }
 
 
@@ -378,4 +389,30 @@ public class PasswordManagerApp {
             System.out.print(ch);
         }
     }
+
+    /*
+     * EFFECTS: Saves the information stored in the manager to file
+     */
+    private void saveManager() {
+        try {
+            jsonWriter.open();
+            jsonWriter.write(accounts);
+            jsonWriter.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("Unable to save to file: " + JSON_STORE);
+        }
+    }
+
+    /*
+     * MODIFIES: this
+     * EFFECTS: Load the information from file into the manager
+     */
+    private void loadManager() {
+        try {
+            accounts = jsonReader.read();
+        } catch (IOException e) {
+            System.out.println("Unable to load from file path: " + JSON_STORE);
+        }
+    }
+
 }

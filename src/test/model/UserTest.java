@@ -9,8 +9,11 @@ public class UserTest {
     void testConstructor() {
         char[] expectedUsername = "admin".toCharArray();
         char[] expectedPassword = "pass".toCharArray();
-        User testUser = new User(expectedUsername, expectedPassword);
+        CollectionOfAccounts accounts = new CollectionOfAccounts();
+        User testUser = new User(expectedUsername, expectedPassword, accounts);
+
         assertEquals(expectedUsername, testUser.getMasterUsername());
         assertEquals(expectedPassword, testUser.getMasterPassword());
+        assertEquals(accounts, testUser.getAccounts());
     }
 }

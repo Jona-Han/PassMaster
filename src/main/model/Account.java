@@ -75,7 +75,7 @@ public class Account implements Writable {
      * EFFECTS: Returns a Json version of this
      */
     @Override
-    public JSONObject toJson() {
+    public JSONObject toJSON() {
         JSONObject json = new JSONObject();
         json.put("name", name);
         json.put("username", username);

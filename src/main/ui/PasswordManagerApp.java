@@ -77,14 +77,12 @@ public class PasswordManagerApp {
     }
 
     /*
-     * EFFECTS: Initializes empty collection of accounts and loads saved data.
+     * EFFECTS: Initializes empty collection of accounts
      */
     private void init() {
         accounts = new CollectionOfAccounts();
-
         jsonWriter = new JsonWriter(JSON_STORE);
         jsonReader = new JsonReader(JSON_STORE);
-        loadManager();
     }
 
 
@@ -162,7 +160,6 @@ public class PasswordManagerApp {
         Account accountToManage;
         accountToManage = getNewAccountInfo();
         addAccount(accountToManage);
-        saveManager();
     }
 
     /*
@@ -174,7 +171,6 @@ public class PasswordManagerApp {
         try {
             accountToManage = getAccountFromAccounts();
             removeAccount(accountToManage);
-            saveManager();
         } catch (CollectionIndexOutOfBoundsException e) {
             System.out.println("Invalid account selection. Please choose a valid account number.");
         } catch (NullAccountException e) {
@@ -299,7 +295,6 @@ public class PasswordManagerApp {
                 default:
                     editing = false;
             }
-            saveManager();
         }
     }
 

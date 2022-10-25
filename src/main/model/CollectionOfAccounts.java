@@ -10,7 +10,7 @@ import java.util.List;
 
 public class CollectionOfAccounts implements Writable {
     private static final String JSON_PATH = "./data/data.json";
-    List<Account> accounts;
+    private List<Account> accounts;
 
     /*
      * EFFECTS: Constructs an empty CollectionOfAccounts

@@ -43,7 +43,7 @@ public class JsonReader {
      * EFFECTS: Parses a collection of accounts from jsonObject and returns it
      */
     private User parseCollectionOfAccounts(JSONObject jsonObject) {
-        User accounts = new User();
+        User accounts = new User(jsonObject.getString("masterPassword"));
         addAccounts(accounts, jsonObject);
         return accounts;
     }

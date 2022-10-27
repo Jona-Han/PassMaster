@@ -79,7 +79,7 @@ public class PasswordManagerApp {
      * EFFECTS: Initializes empty collection of accounts
      */
     private void init() {
-        accounts = new User();
+        accounts = new User("password");
         jsonWriter = new JsonWriter(JSON_STORE);
         jsonReader = new JsonReader(JSON_STORE);
     }

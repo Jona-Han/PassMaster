@@ -14,16 +14,18 @@ public class User implements Writable {
     private String masterPassword;
 
     /*
-     * EFFECTS: Constructs an empty CollectionOfAccounts
+     * EFFECTS: Constructs an empty CollectionOfAccounts with a master password
      */
-    public User() {
+    public User(String masterPassword) {
+        this.masterPassword = masterPassword;
         accounts = new ArrayList<>();
     }
 
     /*
-     * EFFECTS: Constructs a new CollectionOfAccounts with an account
+     * EFFECTS: Constructs a new CollectionOfAccounts with an account and a master password
      */
-    public User(Account account) {
+    public User(String masterPassword, Account account) {
+        this.masterPassword = masterPassword;
         accounts = new ArrayList<>();
         accounts.add(account);
     }
@@ -85,11 +87,16 @@ public class User implements Writable {
         return accounts.get(index);
     }
 
-    /*
-     * EFFECTS: returns the inner list. Primarily just for testing
-     */
     public List<Account> getInnerList() {
         return accounts;
+    }
+
+    public String getMasterPassword() {
+        return masterPassword;
+    }
+
+    public void setMasterPassword(String newPassword) {
+        this.masterPassword = newPassword;
     }
 
     /*
@@ -98,6 +105,7 @@ public class User implements Writable {
     @Override
     public JSONObject toJSON() {
         JSONObject json = new JSONObject();
+        json.put("masterPassword", masterPassword);
         json.put("accounts", accountsToJson());
         return json;
     }

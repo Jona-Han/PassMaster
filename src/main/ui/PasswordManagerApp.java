@@ -105,7 +105,7 @@ public class PasswordManagerApp {
         //Print out all the names of accounts
         for (int index = 0; index < accounts.size(); index++) {
             System.out.format("%n %-10s", index + 1);
-            System.out.println(accounts.get(index).getName());
+            System.out.print(accounts.get(index).getName());
         }
         System.out.println();
     }

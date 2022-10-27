@@ -11,6 +11,7 @@ import java.util.List;
 public class User implements Writable {
     private static final String JSON_PATH = "./data/data.json";
     private List<Account> accounts;
+    private String masterPassword;
 
     /*
      * EFFECTS: Constructs an empty CollectionOfAccounts

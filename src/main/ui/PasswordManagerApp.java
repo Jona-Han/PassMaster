@@ -36,7 +36,7 @@ public class PasswordManagerApp {
 
         while (!passwordCorrect) {
             System.out.println("Please enter your password: ");
-            String input = getUserInputString();
+            String input = getUserInput();
 
             //If password is correct, start manager
             if (Objects.equals(input, password)) {
@@ -64,7 +64,7 @@ public class PasswordManagerApp {
                 System.out.println("ERROR: INDEX REFERENCED OUT OF BOUNDS");
             }
             displayCommandMenu();
-            userInput = getUserInputString();
+            userInput = getUserInput();
 
             if (userInput.equals("q") || userInput.equals("Q")) {
                 running = false;
@@ -105,7 +105,7 @@ public class PasswordManagerApp {
         //Print out all the names of accounts
         for (int index = 0; index < accounts.size(); index++) {
             System.out.format("%n %-10s", index + 1);
-            printArray(accounts.get(index).getName());
+            System.out.println(accounts.get(index).getName());
         }
         System.out.println();
     }
@@ -182,7 +182,7 @@ public class PasswordManagerApp {
      */
     private Account getAccountFromAccounts() throws CollectionIndexOutOfBoundsException {
         System.out.println("\nWhich account number?");
-        String userInput = getUserInputString();
+        String userInput = getUserInput();
         int indexInAccounts = Integer.parseInt(userInput) - 1;  //Converts user input into an integer
         return accounts.get(indexInAccounts);
     }
@@ -191,14 +191,8 @@ public class PasswordManagerApp {
      * EFFECTS: Displays information about a specific account stored in the manager
      */
     private void viewSpecificAccountInformation(Account account) {
-        //Print account information
-        System.out.println();
-        printArray(account.getName());
-        System.out.print("\nUsername: ");
-        printArray(account.getUsername());
-        System.out.print("\nPassword: ");
-        printArray(account.getPassword());
-        System.out.println();
+        System.out.println("\n" + account.getName() + "\nUsername: " + account.getUsername() + "\nPassword: "
+                            + account.getPassword());
     }
 
     /*
@@ -212,7 +206,7 @@ public class PasswordManagerApp {
 
         //Ask user if they would like to edit the account
         System.out.println("\nWould you like to edit this account? (y/n)");
-        String userInput = getUserInputString();
+        String userInput = getUserInput();
 
         //Enter editing mode if yes
         if (userInput.equals("y") || userInput.equals("Y")) {
@@ -234,13 +228,13 @@ public class PasswordManagerApp {
      * EFFECTS: Asks user for new account info, instantiates new account, and returns it
      */
     private Account getNewAccountInfo() {
-        char[] name;
+        String name;
         while (true) {
             System.out.println("\nWhat would you like to name the new account?");
             name = getUserInput();
 
             //Check for blank name and break out of loop if the name is not empty
-            if (name.length == 0) {
+            if (name.length() == 0) {
                 System.out.println("Sorry, name cannot be left blank. Please try again.");
             } else {
                 break;
@@ -248,10 +242,10 @@ public class PasswordManagerApp {
         }
 
         System.out.println("What is the username of the new account?");
-        char[] username = getUserInput();
+        String username = getUserInput();
 
         System.out.println("What is the password of the new account?");
-        char[] password = getUserInput();
+        String password = getUserInput();
 
         return new Account(name, username, password);
     }
@@ -277,7 +271,7 @@ public class PasswordManagerApp {
             viewSpecificAccountInformation(account);
             System.out.println("\nPlease enter the field you would like to change:\na: Name\t\tb: Username"
                     + "\t\tc: Password\t\td: Exit editing mode");
-            String userInput = getUserInputString();
+            String userInput = getUserInput();
             userInput = userInput.toLowerCase();
 
             //Change name if "a", change username if "b", change password if "c", exit editing mode if anything else
@@ -303,15 +297,14 @@ public class PasswordManagerApp {
      */
     private void changeName(Account account) {
         //Get user input and check that it isn't blank
-        char[] userInput;
+        String userInput;
         while (true) {
-            System.out.print("\nWhat would you like to change the name to?\nCurrently: ");
-            printArray(account.getName());
+            System.out.print("\nWhat would you like to change the name to?\nCurrently: " + account.getName());
             System.out.println();
             userInput = getUserInput();
 
             //Check for blank name
-            if (userInput.length == 0) {
+            if (userInput.length() == 0) {
                 System.out.println("Sorry, name cannot be left blank. Please try again.");
             } else {
                 break;
@@ -329,10 +322,9 @@ public class PasswordManagerApp {
      */
     private void changeUsername(Account account) {
         //Print out prompt and get user input
-        System.out.print("\nWhat would you like to change the username to?\nCurrently: ");
-        printArray(account.getUsername());
+        System.out.print("\nWhat would you like to change the username to?\nCurrently: " + account.getUsername());
         System.out.println();
-        char[] userInput = getUserInput();
+        String userInput = getUserInput();
 
         //Change username
         account.setUsername(userInput);
@@ -345,10 +337,9 @@ public class PasswordManagerApp {
      */
     private void changePassword(Account account) {
         //Print out prompt and get user input
-        System.out.print("\nWhat would you like to change the password to?\nCurrently: ");
-        printArray(account.getPassword());
+        System.out.print("\nWhat would you like to change the password to?\nCurrently: " + account.getPassword());
         System.out.println();
-        char[] userInput = getUserInput();
+        String userInput = getUserInput();
 
         //Change password
         account.setPassword(userInput);
@@ -356,18 +347,9 @@ public class PasswordManagerApp {
     }
 
     /*
-     * EFFECTS: Gets user input from the keyboard and returns it as a char array
-     * Primarily for securely collecting username and passwords
-     */
-    private char[] getUserInput() {
-        Scanner input = new Scanner(System.in);
-        return input.nextLine().toCharArray();
-    }
-
-    /*
      * EFFECTS: Gets user input from the keyboard and returns it as a string
      */
-    private String getUserInputString() {
+    private String getUserInput() {
         Scanner input = new Scanner(System.in);
         return input.nextLine();
     }
@@ -378,15 +360,6 @@ public class PasswordManagerApp {
     private void pressEnterToContinue() {
         System.out.println("Press the Enter key to continue...");
         getUserInput();
-    }
-
-    /*
-     * EFFECTS: Prints the contents of an array
-     */
-    private void printArray(char[] array) {
-        for (char ch : array) {
-            System.out.print(ch);
-        }
     }
 
     /*

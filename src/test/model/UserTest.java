@@ -3,7 +3,6 @@ package model;
 import exceptions.CollectionIndexOutOfBoundsException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import ui.PasswordManagerApp;
 
 import java.util.List;
 
@@ -18,18 +17,13 @@ public class UserTest {
 
     @BeforeEach
     void setUp() {
-        a = createNewAccountFromStrings("a", "userA", "passA");
-        b = createNewAccountFromStrings("b", "userB", "passB");
-        c = createNewAccountFromStrings("c", "userC", "passC");
+        a = new Account("a", "userA", "passA");
+        b = new Account("b", "userB", "passB");
+        c = new Account("c", "userC", "passC");
 
         testCollection = new User(a);
         innerList = testCollection.getInnerList();
     }
-
-    private Account createNewAccountFromStrings(String name, String username, String password) {
-        return new Account(name.toCharArray(), username.toCharArray(), password.toCharArray());
-    }
-
 
     @Test
     void testEmptyConstructor() {

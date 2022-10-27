@@ -3,97 +3,97 @@ package model;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class AccountTest {
     Account account;
-    char[] name;
-    char[] username;
-    char[] password;
+    String name;
+    String username;
+    String password;
 
     @BeforeEach
     void setUp() {
-        name = "Test Website".toCharArray();
-        username = "test1".toCharArray();
-        password = "password123".toCharArray();
+        name = "Test Website";
+        username = "test1";
+        password = "password123";
         account = new Account(name, username, password);
     }
 
     @Test
     void testConstructorNoneEmptyArray() {
-        char[] expectedName = "Test Website".toCharArray();
-        char[] expectedUsername = "test1".toCharArray();
-        char[] expectedPassword = "password123".toCharArray();
+        String expectedName = "Test Website";
+        String expectedUsername = "test1";
+        String expectedPassword = "password123";
 
-        assertArrayEquals(expectedName, account.getName());
-        assertArrayEquals(expectedUsername, account.getUsername());
-        assertArrayEquals(expectedPassword, account.getPassword());
+        assertEquals(expectedName, account.getName());
+        assertEquals(expectedUsername, account.getUsername());
+        assertEquals(expectedPassword, account.getPassword());
     }
 
     @Test
     void testConstructorEmptyUsernameArray() {
-        char[] expectedName = "Test Website".toCharArray();
-        char[] expectedUsername = "_NO_VALUE_".toCharArray();
-        char[] expectedPassword = "password123".toCharArray();
+        String expectedName = "Test Website";
+        String expectedUsername = "_NO_VALUE_";
+        String expectedPassword = "password123";
 
-        account = new Account("Test Website".toCharArray(), new char[0], "password123".toCharArray());
+        account = new Account("Test Website", "", "password123");
 
-        assertArrayEquals(expectedName, account.getName());
-        assertArrayEquals(expectedUsername, account.getUsername());
-        assertArrayEquals(expectedPassword, account.getPassword());
+        assertEquals(expectedName, account.getName());
+        assertEquals(expectedUsername, account.getUsername());
+        assertEquals(expectedPassword, account.getPassword());
     }
 
     @Test
     void testConstructorEmptyPasswordArray() {
-        char[] expectedName = "Test Website".toCharArray();
-        char[] expectedUsername = "test1".toCharArray();
-        char[] expectedPassword = "_NO_VALUE_".toCharArray();
+        String expectedName = "Test Website";
+        String expectedUsername = "test1";
+        String expectedPassword = "_NO_VALUE_";
 
-        account = new Account("Test Website".toCharArray(), "test1".toCharArray(), new char[0]);
+        account = new Account("Test Website", "test1", "");
 
-        assertArrayEquals(expectedName, account.getName());
-        assertArrayEquals(expectedUsername, account.getUsername());
-        assertArrayEquals(expectedPassword, account.getPassword());
+        assertEquals(expectedName, account.getName());
+        assertEquals(expectedUsername, account.getUsername());
+        assertEquals(expectedPassword, account.getPassword());
     }
 
 
     @Test
     void testSetName() {
-        char[] newName = "New Name".toCharArray();
-        char[] expected = "New Name".toCharArray();
+        String newName = "New Name";
+        String expected = "New Name";
         account.setName(newName);
-        assertArrayEquals(expected, account.getName());
+        assertEquals(expected, account.getName());
     }
 
     @Test
     void testSetUsername() {
-        char[] newUsername = "newUsername".toCharArray();
-        char[] expected = "newUsername".toCharArray();
+        String newUsername = "newUsername";
+        String expected = "newUsername";
         account.setUsername(newUsername);
-        assertArrayEquals(expected, account.getUsername());
+        assertEquals(expected, account.getUsername());
     }
 
     @Test
     void testSetUsernameEmptyArray() {
-        char[] newUsername = new char[0];
-        char[] expected = "_NO_VALUE_".toCharArray();
+        String newUsername = "";
+        String expected = "_NO_VALUE_";
         account.setUsername(newUsername);
-        assertArrayEquals(expected, account.getUsername());
+        assertEquals(expected, account.getUsername());
     }
 
     @Test
     void testSetPassword() {
-        char[] newPassword = "newPassword".toCharArray();
-        char[] expected  = "newPassword".toCharArray();
+        String newPassword = "newPassword";
+        String expected  = "newPassword";
         account.setPassword(newPassword);
-        assertArrayEquals(expected, account.getPassword());
+        assertEquals(expected, account.getPassword());
     }
 
     @Test
     void testSetPasswordEmptyArray() {
-        char[] newPassword = new char[0];
-        char[] expected = "_NO_VALUE_".toCharArray();
+        String newPassword = "";
+        String expected = "_NO_VALUE_";
         account.setPassword(newPassword);
-        assertArrayEquals(expected, account.getPassword());
+        assertEquals(expected, account.getPassword());
     }
 }

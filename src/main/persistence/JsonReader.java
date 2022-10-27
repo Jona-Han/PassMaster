@@ -66,9 +66,9 @@ public class JsonReader {
      * EFFECTS: Parses an account from jsonObject and adds it to the collection of accounts
      */
     private void addAccount(User accounts, JSONObject jsonObject) {
-        char[] name = jsonObject.getString("name").toCharArray();
-        char[] username = jsonObject.getString("username").toCharArray();
-        char[] password = jsonObject.getString("password").toCharArray();
+        String name = jsonObject.getString("name");
+        String username = jsonObject.getString("username");
+        String password = jsonObject.getString("password");
         accounts.add(new Account(name, username, password));
     }
 }

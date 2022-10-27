@@ -25,7 +25,7 @@ public class JsonWriter {
      * EFFECTS: Opens a new writer and throws an account failed to open exception if path is not valid
      */
     public void open() throws FileNotFoundException {
-        writer = new PrintWriter(new File(path));
+        writer = new PrintWriter(path);
     }
 
     /*
@@ -40,8 +40,8 @@ public class JsonWriter {
      * MODIFIES: this
      * EFFECTS: Writes the Json representation of CollectionOfAccounts to the file system
      */
-    public void write(User collection) {
-        JSONObject json = collection.toJSON();
+    public void write(User userData) {
+        JSONObject json = userData.toJSON();
         saveToFile(json.toString(TAB));
     }
 

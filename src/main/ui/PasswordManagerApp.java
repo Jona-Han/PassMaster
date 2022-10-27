@@ -17,12 +17,13 @@ public class PasswordManagerApp {
     private JsonWriter jsonWriter;
     private JsonReader jsonReader;
 
-    protected User accounts;
+    protected User userData;
 
     /*
      * EFFECTS: Starts the Password Manager App by initiating the login process
      */
     public PasswordManagerApp() {
+        init();
         runLoginProcess();
     }
 
@@ -51,8 +52,6 @@ public class PasswordManagerApp {
      * EFFECTS: Processes user input
      */
     private void runManagerProcess() {
-        init();
-
         boolean running = true;
         String userInput;
 
@@ -79,9 +78,9 @@ public class PasswordManagerApp {
      * EFFECTS: Initializes empty collection of accounts
      */
     private void init() {
-        accounts = new User("password");
         jsonWriter = new JsonWriter(JSON_STORE);
         jsonReader = new JsonReader(JSON_STORE);
+        loadManager();
     }
 
 
@@ -103,9 +102,9 @@ public class PasswordManagerApp {
         System.out.format("%-10s %-1s", "Number:", "Account Name:");
 
         //Print out all the names of accounts
-        for (int index = 0; index < accounts.size(); index++) {
+        for (int index = 0; index < userData.size(); index++) {
             System.out.format("%n %-10s", index + 1);
-            System.out.print(accounts.get(index).getName());
+            System.out.print(userData.get(index).getName());
         }
         System.out.println();
     }
@@ -159,6 +158,7 @@ public class PasswordManagerApp {
         Account accountToManage;
         accountToManage = getNewAccountInfo();
         addAccount(accountToManage);
+        saveManager();
     }
 
     /*
@@ -170,6 +170,7 @@ public class PasswordManagerApp {
         try {
             accountToManage = getAccountFromAccounts();
             removeAccount(accountToManage);
+            saveManager();
         } catch (CollectionIndexOutOfBoundsException e) {
             System.out.println("Invalid account selection. Please choose a valid account number.");
         } catch (NullAccountException e) {
@@ -184,7 +185,7 @@ public class PasswordManagerApp {
         System.out.println("\nWhich account number?");
         String userInput = getUserInput();
         int indexInAccounts = Integer.parseInt(userInput) - 1;  //Converts user input into an integer
-        return accounts.get(indexInAccounts);
+        return userData.get(indexInAccounts);
     }
 
     /*
@@ -211,6 +212,7 @@ public class PasswordManagerApp {
         //Enter editing mode if yes
         if (userInput.equals("y") || userInput.equals("Y")) {
             editAccount(account);
+            saveManager();
         }
     }
 
@@ -220,7 +222,7 @@ public class PasswordManagerApp {
      * EFFECTS: Adds an account to the manager
      */
     private void addAccount(Account account) {
-        accounts.add(account);
+        userData.add(account);
         System.out.println("\nAccount successfully added!");
     }
 
@@ -255,7 +257,7 @@ public class PasswordManagerApp {
      * EFFECTS: Removes an account from the password manager
      */
     private void removeAccount(Account account) throws NullAccountException {
-        accounts.remove(account);
+        userData.remove(account);
         System.out.println("\nAccount successfully removed!");
     }
 
@@ -270,7 +272,7 @@ public class PasswordManagerApp {
             //Prompt user and get input
             viewSpecificAccountInformation(account);
             System.out.println("\nPlease enter the field you would like to change:\na: Name\t\tb: Username"
-                    + "\t\tc: Password\t\td: Exit editing mode");
+                    + "\t\tc: Password\t\td: Save changes and exit editing mode");
             String userInput = getUserInput();
             userInput = userInput.toLowerCase();
 
@@ -368,10 +370,10 @@ public class PasswordManagerApp {
     private void saveManager() {
         try {
             jsonWriter.open();
-            jsonWriter.write(accounts);
+            jsonWriter.write(userData);
             jsonWriter.close();
         } catch (FileNotFoundException e) {
-            System.out.println("Unable to save to file: " + JSON_STORE);
+            System.out.println("Unable to save to file path: " + JSON_STORE);
         }
     }
 
@@ -381,7 +383,7 @@ public class PasswordManagerApp {
      */
     private void loadManager() {
         try {
-            accounts = jsonReader.read();
+            userData = jsonReader.read();
         } catch (IOException e) {
             System.out.println("Unable to load from file path: " + JSON_STORE);
         }

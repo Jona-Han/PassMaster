@@ -27,18 +27,15 @@ public class PasswordManagerApp {
 
     /*
      * EFFECTS: Checks for correct login info and starts the password manager if info is correct
-     * TODO: Remove hard-coded password
      */
     private void runLoginProcess() {
-        String password = "password"; //Won't be hard-coded in the future
         boolean passwordCorrect = false;
-
         while (!passwordCorrect) {
             System.out.println("Please enter your password: ");
             String input = getUserInput();
 
             //If password is correct, start manager
-            if (Objects.equals(input, password)) {
+            if (Objects.equals(input, userData.getMasterPassword())) {
                 passwordCorrect = true;
                 runManagerProcess();
             }
@@ -375,8 +372,22 @@ public class PasswordManagerApp {
         try {
             userData = jsonReader.read();
         } catch (IOException e) {
-            System.out.println("Unable to load from file path: " + JSON_STORE);
+            registerNewUser();
         }
     }
+
+    /*
+     * MODIFIES: this
+     * EFFECTS: Create a user with a master password. Only happens during the first time the program starts
+     */
+    private void registerNewUser() {
+        System.out.println("Welcome! Looks like this is the first time you have opened this application.\nWhat would"
+                             + " you like your master password to be?");
+        String newPassword = getUserInput();
+        System.out.println("Master password set. Use this password to log in every time you use this application.");
+        userData = new User(newPassword);
+        saveManager();
+    }
+
 
 }

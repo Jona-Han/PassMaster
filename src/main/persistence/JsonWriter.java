@@ -1,6 +1,6 @@
 package persistence;
 
-import model.CollectionOfAccounts;
+import model.User;
 import org.json.JSONObject;
 
 import java.io.File;
@@ -40,7 +40,7 @@ public class JsonWriter {
      * MODIFIES: this
      * EFFECTS: Writes the Json representation of CollectionOfAccounts to the file system
      */
-    public void write(CollectionOfAccounts collection) {
+    public void write(User collection) {
         JSONObject json = collection.toJSON();
         saveToFile(json.toString(TAB));
     }

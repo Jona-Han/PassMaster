@@ -3,8 +3,7 @@ package ui;
 import exceptions.CollectionIndexOutOfBoundsException;
 import exceptions.NullAccountException;
 import model.Account;
-import model.CollectionOfAccounts;
-import org.json.JSONObject;
+import model.User;
 import persistence.JsonReader;
 import persistence.JsonWriter;
 
@@ -18,7 +17,7 @@ public class PasswordManagerApp {
     private JsonWriter jsonWriter;
     private JsonReader jsonReader;
 
-    protected CollectionOfAccounts accounts;
+    protected User accounts;
 
     /*
      * EFFECTS: Starts the Password Manager App by initiating the login process
@@ -29,7 +28,7 @@ public class PasswordManagerApp {
 
     /*
      * EFFECTS: Checks for correct login info and starts the password manager if info is correct
-     * TODO: Remove hard-coded password, accept username and password, check between multiple accounts
+     * TODO: Remove hard-coded password
      */
     private void runLoginProcess() {
         String password = "password"; //Won't be hard-coded in the future
@@ -80,7 +79,7 @@ public class PasswordManagerApp {
      * EFFECTS: Initializes empty collection of accounts
      */
     private void init() {
-        accounts = new CollectionOfAccounts();
+        accounts = new User();
         jsonWriter = new JsonWriter(JSON_STORE);
         jsonReader = new JsonReader(JSON_STORE);
     }

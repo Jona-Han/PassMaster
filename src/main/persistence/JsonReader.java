@@ -1,7 +1,7 @@
 package persistence;
 
 import model.Account;
-import model.CollectionOfAccounts;
+import model.User;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -22,7 +22,7 @@ public class JsonReader {
     /*
      * EFFECTS: reads a collection of accounts from the file at destination source
      */
-    public CollectionOfAccounts read() throws IOException {
+    public User read() throws IOException {
         String jsonData = readFile(source);
         JSONObject jsonObject = new JSONObject(jsonData);
         return parseCollectionOfAccounts(jsonObject);
@@ -42,8 +42,8 @@ public class JsonReader {
     /*
      * EFFECTS: Parses a collection of accounts from jsonObject and returns it
      */
-    private CollectionOfAccounts parseCollectionOfAccounts(JSONObject jsonObject) {
-        CollectionOfAccounts accounts = new CollectionOfAccounts();
+    private User parseCollectionOfAccounts(JSONObject jsonObject) {
+        User accounts = new User();
         addAccounts(accounts, jsonObject);
         return accounts;
     }
@@ -52,7 +52,7 @@ public class JsonReader {
      * MODIFIES: CollectionOfAccounts
      * EFFECTS: Parses Accounts from jsonObject and adds them to the collection of accounts
      */
-    private void addAccounts(CollectionOfAccounts accounts, JSONObject jsonObject) {
+    private void addAccounts(User accounts, JSONObject jsonObject) {
         JSONArray jsonArray = jsonObject.getJSONArray("accounts");
 
         for (Object jsonAccount : jsonArray) {
@@ -65,7 +65,7 @@ public class JsonReader {
      * MODIFIES: CollectionOfAccounts
      * EFFECTS: Parses an account from jsonObject and adds it to the collection of accounts
      */
-    private void addAccount(CollectionOfAccounts accounts, JSONObject jsonObject) {
+    private void addAccount(User accounts, JSONObject jsonObject) {
         char[] name = jsonObject.getString("name").toCharArray();
         char[] username = jsonObject.getString("username").toCharArray();
         char[] password = jsonObject.getString("password").toCharArray();

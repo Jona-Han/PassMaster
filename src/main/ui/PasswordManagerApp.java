@@ -1,7 +1,6 @@
 package ui;
 
 import exceptions.CollectionIndexOutOfBoundsException;
-import exceptions.NullAccountException;
 import model.Account;
 import model.User;
 import persistence.JsonReader;
@@ -13,11 +12,10 @@ import java.util.*;
 
 //Password Manager Application
 public class PasswordManagerApp {
-    private static final String JSON_STORE = "./data/data.json";
+    private static final String JSON_STORE = "./data/userData.json";
     private JsonWriter jsonWriter;
     private JsonReader jsonReader;
-
-    protected User userData;
+    private User userData;
 
     /*
      * EFFECTS: Starts the Password Manager App by initiating the login process
@@ -145,8 +143,6 @@ public class PasswordManagerApp {
             promptUserToEnterEditingMode(accountToManage);
         } catch (CollectionIndexOutOfBoundsException e) {
             System.out.println("Invalid account selection. Please choose a valid account number.");
-        } catch (NullAccountException e) {
-            System.out.println("ERROR: Account does not exist.");
         }
     }
 
@@ -173,8 +169,6 @@ public class PasswordManagerApp {
             saveManager();
         } catch (CollectionIndexOutOfBoundsException e) {
             System.out.println("Invalid account selection. Please choose a valid account number.");
-        } catch (NullAccountException e) {
-            System.out.println("ERROR: Account does not exist.");
         }
     }
 
@@ -200,11 +194,7 @@ public class PasswordManagerApp {
      * MODIFIES: this, CollectionOfAccounts, Account
      * EFFECTS: Asks user and enters editing mode if yes answer is given
      */
-    private void promptUserToEnterEditingMode(Account account) throws NullAccountException {
-        if (account == null) {
-            throw new NullAccountException();
-        }
-
+    private void promptUserToEnterEditingMode(Account account) {
         //Ask user if they would like to edit the account
         System.out.println("\nWould you like to edit this account? (y/n)");
         String userInput = getUserInput();
@@ -256,7 +246,7 @@ public class PasswordManagerApp {
      * MODIFIES: this, CollectionOfAccounts
      * EFFECTS: Removes an account from the password manager
      */
-    private void removeAccount(Account account) throws NullAccountException {
+    private void removeAccount(Account account) {
         userData.remove(account);
         System.out.println("\nAccount successfully removed!");
     }

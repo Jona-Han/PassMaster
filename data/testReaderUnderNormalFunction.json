@@ -1,0 +1,15 @@
+{
+    "masterPassword": "password",
+    "accounts": [
+        {
+            "password": "b",
+            "name": "first",
+            "username": "a"
+        },
+        {
+            "password": "d",
+            "name": "second",
+            "username": "c"
+        }
+    ]
+}

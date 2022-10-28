@@ -21,8 +21,5 @@ understand how this is done.
 - As a user, I want to be able to add an account to my list of accounts
 - As a user, I want to be able to remove an account from my list of accounts
 - As a user, I want to be able to edit the username and password of an account
-- As a user, I want to be able to organize accounts into folders
-- As a user, I want to be able to not worry about someone knowing my stored information without logging in using my 
-  master username and password
 - As a user, I want to be able to save my account information to file automatically
 - As a user, I want to load my account information from file once I log in

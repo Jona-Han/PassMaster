@@ -8,9 +8,9 @@ import persistence.Writable;
 import java.util.ArrayList;
 import java.util.List;
 
+//Represents a user class with a master password and a list of accounts
 public class User implements Writable {
-    private static final String JSON_PATH = "./data/data.json";
-    private List<Account> accounts;
+    private final List<Account> accounts;
     private String masterPassword;
 
     /*
@@ -103,7 +103,7 @@ public class User implements Writable {
      * EFFECTS: returns the inner list. Primarily just for testing
      */
     @Override
-    public JSONObject toJSON() {
+    public JSONObject toJson() {
         JSONObject json = new JSONObject();
         json.put("masterPassword", masterPassword);
         json.put("accounts", accountsToJson());
@@ -117,7 +117,7 @@ public class User implements Writable {
         JSONArray json = new JSONArray();
 
         for (Account account : accounts) {
-            json.put(account.toJSON());
+            json.put(account.toJson());
         }
         return json;
     }

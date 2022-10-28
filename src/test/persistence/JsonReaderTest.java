@@ -16,7 +16,7 @@ class JsonReaderTest extends JsonTest {
     void testReaderNonExistentFile() {
         JsonReader reader = new JsonReader("./data/nonExistentFile.json");
         try {
-            User user = reader.read();
+            reader.read();
             fail("IOException expected");
         } catch (IOException e) {
             //success

@@ -97,9 +97,29 @@ public class UserTest {
     }
 
     @Test
-    void testRemoveIntegerParameterOutOfBounds() {
+    void testRemoveIntegerParameterOutOfBoundsBoundary() {
         try {
             testCollection.remove(1);
+            fail("Exception should have been thrown");
+        } catch (CollectionIndexOutOfBoundsException e) {
+            //pass
+        }
+    }
+
+    @Test
+    void testRemoveIntegerParameterOutOfBoundsNegative() {
+        try {
+            testCollection.remove(-1);
+            fail("Exception should have been thrown");
+        } catch (CollectionIndexOutOfBoundsException e) {
+            //pass
+        }
+    }
+
+    @Test
+    void testRemoveIntegerParameterOutOfBounds() {
+        try {
+            testCollection.remove(3);
             fail("Exception should have been thrown");
         } catch (CollectionIndexOutOfBoundsException e) {
             //pass
@@ -153,9 +173,29 @@ public class UserTest {
     }
 
     @Test
-    void testGetOutOfBounds() {
+    void testGetOutOfBoundsBoundary() {
         try {
             testCollection.get(1);
+            fail("Exception should have been thrown");
+        } catch (CollectionIndexOutOfBoundsException e) {
+            //pass
+        }
+    }
+
+    @Test
+    void testGetOutOfBoundsNegative() {
+        try {
+            testCollection.get(-1);
+            fail("Exception should have been thrown");
+        } catch (CollectionIndexOutOfBoundsException e) {
+            //pass
+        }
+    }
+
+    @Test
+    void testGetOutOfBounds() {
+        try {
+            testCollection.get(3);
             fail("Exception should have been thrown");
         } catch (CollectionIndexOutOfBoundsException e) {
             //pass

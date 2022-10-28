@@ -43,9 +43,6 @@ public class User implements Writable {
      * EFFECTS: removes an Account object from CollectionOfAccounts, returns true if successfully removed
      */
     public boolean remove(Account account) {
-        if (account == null) {
-            throw new NullPointerException();
-        }
         return accounts.remove(account);
     }
 
@@ -64,9 +61,6 @@ public class User implements Writable {
      * EFFECTS: checks if there's an Account object in the CollectionOfAccounts and returns true if there is
      */
     public boolean contains(Account account) {
-        if (account == null) {
-            throw new NullPointerException();
-        }
         return accounts.contains(account);
     }
 
@@ -100,7 +94,7 @@ public class User implements Writable {
     }
 
     /*
-     * EFFECTS: returns the inner list. Primarily just for testing
+     * EFFECTS: Converts this to a JSON Object
      */
     @Override
     public JSONObject toJson() {
@@ -111,7 +105,7 @@ public class User implements Writable {
     }
 
     /*
-     * EFFECTS: returns the accounts in this collection as a JSON Array
+     * EFFECTS: converts the list of accounts stored in this to a JSON array
      */
     private JSONArray accountsToJson() {
         JSONArray json = new JSONArray();

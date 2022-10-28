@@ -32,6 +32,7 @@ public class UserTest {
         testCollection = new User(pass);
         List<Account> actualList = testCollection.getInnerList();
         assertEquals(0, actualList.size());
+        assertEquals(pass, testCollection.getMasterPassword());
     }
 
     @Test
@@ -39,6 +40,12 @@ public class UserTest {
         testCollection = new User(pass, a);
         List<Account> actualInnerList = testCollection.getInnerList();
         assertEquals(1, actualInnerList.size());
+    }
+
+    @Test
+    void testSetMasterPassword() {
+        testCollection.setMasterPassword("newPassword");
+        assertEquals("newPassword", testCollection.getMasterPassword());
     }
 
     @Test
@@ -90,6 +97,16 @@ public class UserTest {
     }
 
     @Test
+    void testRemoveIntegerParameterOutOfBounds() {
+        try {
+            testCollection.remove(1);
+            fail("Exception should have been thrown");
+        } catch (CollectionIndexOutOfBoundsException e) {
+            //pass
+        }
+    }
+
+    @Test
     void testSizeEmptyCollection() {
         testCollection = new User(pass);
         assertEquals(0, testCollection.size());
@@ -132,6 +149,16 @@ public class UserTest {
             assertEquals(c, testCollection.get(2));
         } catch (CollectionIndexOutOfBoundsException e) {
             fail();
+        }
+    }
+
+    @Test
+    void testGetOutOfBounds() {
+        try {
+            testCollection.get(1);
+            fail("Exception should have been thrown");
+        } catch (CollectionIndexOutOfBoundsException e) {
+            //pass
         }
     }
 }

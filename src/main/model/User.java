@@ -81,6 +81,14 @@ public class User implements Writable {
         return accounts.get(index);
     }
 
+    /*
+     * MODIFIES: this
+     * EFFECTS: replaces an Account at the specified index with the given account and returns the replaced account
+     */
+    public Account set(int index, Account account) {
+        return accounts.set(index, account);
+    }
+
     public List<Account> getInnerList() {
         return accounts;
     }

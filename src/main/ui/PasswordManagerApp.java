@@ -19,6 +19,8 @@ public class PasswordManagerApp extends JFrame {
     private JsonWriter jsonWriter;
     private JsonReader jsonReader;
     private User userData;
+    private JList list;
+    private DefaultListModel<Account> listModel;
 
     /*
      * EFFECTS: Starts the Password Manager App by initiating the login process
@@ -75,16 +77,29 @@ public class PasswordManagerApp extends JFrame {
     }
 
     private void initializeGraphics() {
-        setSize(400,600);
+        setSize(500,600);
         setLayout(new BorderLayout());
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setVisible(true);
+
+        listModel = new DefaultListModel<>();
+        for (Account account : userData.getInnerList()) {
+            listModel.addElement(account);
+        }
+
+        list = new JList(listModel);
+        list.setFixedCellHeight(40);
+        list.setFixedCellWidth(300);
+        list.setVisibleRowCount(5);
+        JScrollPane listScrollPane = new JScrollPane(list);
+        add(listScrollPane, BorderLayout.CENTER);
 
         JPanel menuArea = new JPanel();
-        menuArea.setLayout(new GridLayout());
+        menuArea.setLayout(new GridLayout(2,1));
         menuArea.add(new JButton(new AddAccount()));
         menuArea.add(new JButton(new RemoveAccount()));
         add(menuArea, BorderLayout.SOUTH);
+
+        setVisible(true);
     }
 
     /*
@@ -98,7 +113,6 @@ public class PasswordManagerApp extends JFrame {
 
 
     private class AddAccount extends AbstractAction {
-
         AddAccount() {
             super("Add New Account");
         }
@@ -111,16 +125,20 @@ public class PasswordManagerApp extends JFrame {
                     JOptionPane.QUESTION_MESSAGE);
 
             String username = JOptionPane.showInputDialog(null,
-                    "Password?",
+                    "username?",
                     "Add New Account",
                     JOptionPane.QUESTION_MESSAGE);
 
             String password = JOptionPane.showInputDialog(null,
-                    "Username?",
+                    "password?",
                     "Add New Account",
                     JOptionPane.QUESTION_MESSAGE);
 
-            addAccount(new Account(name, username, password));
+            Account accountToAdd = new Account(name, username, password);
+            addAccount(accountToAdd);
+            listModel.addElement(accountToAdd);
+            list.setSelectedIndex(listModel.getSize());
+            list.ensureIndexIsVisible(listModel.getSize());
             saveManager();
         }
     }
@@ -128,12 +146,21 @@ public class PasswordManagerApp extends JFrame {
     private class RemoveAccount extends AbstractAction {
 
         RemoveAccount() {
-            super("Remove New Account");
+            super("Remove Account");
         }
 
         @Override
         public void actionPerformed(ActionEvent evt) {
-            //stub
+            int index = list.getSelectedIndex();
+            removeAccount((Account) list.getSelectedValue());
+            listModel.remove(index);
+
+            if (listModel.getSize() == 0) {
+                this.setEnabled(false);
+            }
+
+            list.setSelectedIndex(index);
+            list.ensureIndexIsVisible(index);
             saveManager();
         }
     }

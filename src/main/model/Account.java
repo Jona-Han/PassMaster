@@ -82,4 +82,10 @@ public class Account implements Writable {
         json.put("password", password);
         return json;
     }
+
+    @Override
+    public String toString() {
+        return "<html><div style=\"font-weight:bold;font-size:12px\">" + name
+                + "</div><div style=\"font-size:8px\">" + username + "</div></html>";
+    }
 }

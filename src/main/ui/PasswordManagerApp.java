@@ -6,12 +6,15 @@ import model.User;
 import persistence.JsonReader;
 import persistence.JsonWriter;
 
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.*;
 
 //Password Manager Application
-public class PasswordManagerApp {
+public class PasswordManagerApp extends JFrame {
     private static final String JSON_STORE = "./data/userData.json";
     private JsonWriter jsonWriter;
     private JsonReader jsonReader;
@@ -23,6 +26,8 @@ public class PasswordManagerApp {
     public PasswordManagerApp() {
         init();
         runLoginProcess();
+        initializeGraphics();
+        runManagerProcess();
     }
 
     /*
@@ -31,13 +36,13 @@ public class PasswordManagerApp {
     private void runLoginProcess() {
         boolean passwordCorrect = false;
         while (!passwordCorrect) {
-            System.out.println("Please enter your password: ");
-            String input = getUserInput();
+            String input = JOptionPane.showInputDialog(null,
+                    "Welcome to the Password Manager.\nPlease enter your password.",
+                    "Password Manager Login", JOptionPane.PLAIN_MESSAGE);
 
             //If password is correct, start manager
             if (Objects.equals(input, userData.getMasterPassword())) {
                 passwordCorrect = true;
-                runManagerProcess();
             }
         }
     }
@@ -69,6 +74,19 @@ public class PasswordManagerApp {
         System.out.println("\nGood bye!");
     }
 
+    private void initializeGraphics() {
+        setSize(400,600);
+        setLayout(new BorderLayout());
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setVisible(true);
+
+        JPanel menuArea = new JPanel();
+        menuArea.setLayout(new GridLayout());
+        menuArea.add(new JButton(new AddAccount()));
+        menuArea.add(new JButton(new RemoveAccount()));
+        add(menuArea, BorderLayout.SOUTH);
+    }
+
     /*
      * EFFECTS: Initializes empty collection of accounts
      */
@@ -77,6 +95,56 @@ public class PasswordManagerApp {
         jsonReader = new JsonReader(JSON_STORE);
         loadManager();
     }
+
+
+    private class AddAccount extends AbstractAction {
+
+        AddAccount() {
+            super("Add New Account");
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent evt) {
+            String name = JOptionPane.showInputDialog(null,
+                    "Name of account?",
+                    "Add New Account",
+                    JOptionPane.QUESTION_MESSAGE);
+
+            String username = JOptionPane.showInputDialog(null,
+                    "Password?",
+                    "Add New Account",
+                    JOptionPane.QUESTION_MESSAGE);
+
+            String password = JOptionPane.showInputDialog(null,
+                    "Username?",
+                    "Add New Account",
+                    JOptionPane.QUESTION_MESSAGE);
+
+            addAccount(new Account(name, username, password));
+            saveManager();
+        }
+    }
+
+    private class RemoveAccount extends AbstractAction {
+
+        RemoveAccount() {
+            super("Remove New Account");
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent evt) {
+            //stub
+            saveManager();
+        }
+    }
+
+
+
+
+
+
+
+
 
 
     /*
@@ -117,7 +185,6 @@ public class PasswordManagerApp {
                 runViewAccountProcess();
                 break;
             case "a":
-                runAddAccountProcess();
                 break;
             case "d":
                 runRemoveAccountProcess();
@@ -141,17 +208,6 @@ public class PasswordManagerApp {
         } catch (CollectionIndexOutOfBoundsException e) {
             System.out.println("Invalid account selection. Please choose a valid account number.");
         }
-    }
-
-    /*
-     * MODIFIES: this, CollectionOfAccounts, Account
-     * EFFECTS: Processes user command and calls corresponding method
-     */
-    private void runAddAccountProcess() {
-        Account accountToManage;
-        accountToManage = getNewAccountInfo();
-        addAccount(accountToManage);
-        saveManager();
     }
 
     /*
@@ -211,32 +267,6 @@ public class PasswordManagerApp {
     private void addAccount(Account account) {
         userData.add(account);
         System.out.println("\nAccount successfully added!");
-    }
-
-    /*
-     * EFFECTS: Asks user for new account info, instantiates new account, and returns it
-     */
-    private Account getNewAccountInfo() {
-        String name;
-        while (true) {
-            System.out.println("\nWhat would you like to name the new account?");
-            name = getUserInput();
-
-            //Check for blank name and break out of loop if the name is not empty
-            if (name.length() == 0) {
-                System.out.println("Sorry, name cannot be left blank. Please try again.");
-            } else {
-                break;
-            }
-        }
-
-        System.out.println("What is the username of the new account?");
-        String username = getUserInput();
-
-        System.out.println("What is the password of the new account?");
-        String password = getUserInput();
-
-        return new Account(name, username, password);
     }
 
     /*

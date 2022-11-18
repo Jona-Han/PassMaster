@@ -18,8 +18,23 @@ understand how this is done.
 
 - As a user, I want to be able to log in using a master password which is stored as a file
 - As a user, I want to be able to see a list of accounts
-- As a user, I want to be able to add an account to my list of accounts
-- As a user, I want to be able to remove an account from my list of accounts
+- As a user, I want to be able to click a button to view the information of a specific account
+- As a user, I want to be able to add multiples accounts to a User of the application
+- As a user, I want to be able to click a button to add an account
+- As a user, I want to be able to remove an account from the User of the application
+- As a user, I want to be able to click a button to remove an account
 - As a user, I want to be able to edit the username and password of an account
-- As a user, I want to be able to save my account information to file automatically
-- As a user, I want to load my account information from file once I log in
+- As a user, I want to be prompted to save data to file when my application ends
+- As a user, I want to be prompted to load data from file when my application starts
+
+
+## 3. Instructions for Grader
+- If you don't load data in the beginning, then follow the user registration process and remember the password you set
+- You can generate the first required event related to adding Accounts to a User by pressing the "add an account" button
+and following the prompts.
+- You can generate the second required event related to adding Accounts to a User by selecting an account from the list
+of accounts displayed at the top and clicking "View Account Information" button
+- You can locate my visual component by starting the application and seeing the splash screen
+- You can save the state of my application by logging in and exiting the application. Follow the prompts.
+- You can reload the state of my application by starting the application and clicking "yes" on the first prompt. Then
+select the file you would like to load

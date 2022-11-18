@@ -2,6 +2,7 @@ package model;
 
 import org.json.JSONObject;
 import persistence.Writable;
+import ui.PasswordManagerApp;
 
 //Represents an account with a name, a login username, and a login password
 public class Account implements Writable {
@@ -13,50 +14,42 @@ public class Account implements Writable {
      * EFFECTS: constructs an Account object with specified fields
      */
     public Account(String name, String username, String password) {
-        this.name = name;
-        if (username.length() == 0) {
-            this.username = "_NO_VALUE_";
+        if (name.length() == 0) {
+            this.name = "_NO_VALUE_";
         } else {
-            this.username = username;
+            this.name = name;
         }
-        if (password.length() == 0) {
-            this.password = "_NO_VALUE_";
-        } else {
-            this.password = password;
-        }
+        this.username = username;
+        this.password = password;
     }
 
     /*
      * MODIFIES: this
      * EFFECTS: changes the account's associated name
+     *          assigns placeholder if passed in an empty string
      */
     public void setName(String name) {
-        this.name = name;
+        if (name.length() == 0) {
+            this.name = "_NO_VALUE_";
+        } else {
+            this.name = name;
+        }
     }
 
     /*
      * MODIFIES: this
-     * EFFECTS: changes the account's associated username, assigns placeholder if passed in an empty array
+     * EFFECTS: changes the account's associated username
      */
     public void setUsername(String username) {
-        if (username.length() == 0) {
-            this.username = "_NO_VALUE_";
-        } else {
-            this.username = username;
-        }
-
+        this.username = username;
     }
 
     /*
      * MODIFIES: this
-     * EFFECTS: changes the account's associated password, assigns placeholder if passed in an empty array
+     * EFFECTS: changes the account's associated password
      */
     public void setPassword(String password) {
-        if (password.length() == 0) {
-            this.password = "_NO_VALUE_";
-        } else {
-            this.password = password;
-        }
+        this.password = password;
     }
 
     public String getName() {
@@ -83,9 +76,12 @@ public class Account implements Writable {
         return json;
     }
 
+    /*
+     * EFFECTS: Returns a HTML formatted String representing an account
+     */
     @Override
     public String toString() {
-        return "<html><div style=\"font-weight:bold;font-size:12px\">" + name
-                + "</div><div style=\"font-size:8px\">" + username + "</div></html>";
+        return "<html><div style=\"font-size:12px;font-weight:bold;\">" + name
+                + "</div><div style=\"font-size:9px;\">" + username + "</div></html>";
     }
 }

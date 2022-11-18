@@ -33,7 +33,7 @@ class AccountTest {
     @Test
     void testConstructorEmptyUsernameArray() {
         String expectedName = "Test Website";
-        String expectedUsername = "_NO_VALUE_";
+        String expectedUsername = "";
         String expectedPassword = "password123";
 
         account = new Account("Test Website", "", "password123");
@@ -47,7 +47,7 @@ class AccountTest {
     void testConstructorEmptyPasswordArray() {
         String expectedName = "Test Website";
         String expectedUsername = "test1";
-        String expectedPassword = "_NO_VALUE_";
+        String expectedPassword = "";
 
         account = new Account("Test Website", "test1", "");
 
@@ -66,6 +66,14 @@ class AccountTest {
     }
 
     @Test
+    void testSetNameEmptyString() {
+        String newName = "";
+        String expected = "_NO_VALUE_";
+        account.setName(newName);
+        assertEquals(expected, account.getName());
+    }
+
+    @Test
     void testSetUsername() {
         String newUsername = "newUsername";
         String expected = "newUsername";
@@ -74,9 +82,9 @@ class AccountTest {
     }
 
     @Test
-    void testSetUsernameEmptyArray() {
+    void testSetUsernameEmptyString() {
         String newUsername = "";
-        String expected = "_NO_VALUE_";
+        String expected = "";
         account.setUsername(newUsername);
         assertEquals(expected, account.getUsername());
     }
@@ -90,10 +98,18 @@ class AccountTest {
     }
 
     @Test
-    void testSetPasswordEmptyArray() {
+    void testSetPasswordEmptyString() {
         String newPassword = "";
-        String expected = "_NO_VALUE_";
+        String expected = "";
         account.setPassword(newPassword);
         assertEquals(expected, account.getPassword());
+    }
+
+    @Test
+    void testToString() {
+        account = new Account(name, username, password);
+        String expected = "<html><div style=\"font-size:12px;font-weight:bold;\">" + name
+                + "</div><div style=\"font-size:9px;\">" + username + "</div></html>";
+        assertEquals(expected, account.toString());
     }
 }

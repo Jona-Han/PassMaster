@@ -82,6 +82,6 @@ public class Account implements Writable {
     @Override
     public String toString() {
         return "<html><div style=\"font-size:12px;font-weight:bold;\">" + name
-                + "</div><div style=\"font-size:9px;\">" + username + "</div></html>";
+                + "</div><div style=\"font-size:8px;\">" + username + "</div></html>";
     }
 }

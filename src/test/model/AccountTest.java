@@ -109,7 +109,7 @@ class AccountTest {
     void testToString() {
         account = new Account(name, username, password);
         String expected = "<html><div style=\"font-size:12px;font-weight:bold;\">" + name
-                + "</div><div style=\"font-size:9px;\">" + username + "</div></html>";
+                + "</div><div style=\"font-size:8px;\">" + username + "</div></html>";
         assertEquals(expected, account.toString());
     }
 }

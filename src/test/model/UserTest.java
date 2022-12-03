@@ -1,6 +1,5 @@
 package model;
 
-import exceptions.CollectionIndexOutOfBoundsException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -88,42 +87,8 @@ public class UserTest {
 
     @Test
     void testRemoveIntegerParameterSucceed() {
-        try {
             assertEquals(a, testCollection.remove(0));
             assertEquals(0, innerList.size());
-        } catch (CollectionIndexOutOfBoundsException e) {
-            fail();
-        }
-    }
-
-    @Test
-    void testRemoveIntegerParameterOutOfBoundsBoundary() {
-        try {
-            testCollection.remove(1);
-            fail("Exception should have been thrown");
-        } catch (CollectionIndexOutOfBoundsException e) {
-            //pass
-        }
-    }
-
-    @Test
-    void testRemoveIntegerParameterOutOfBoundsNegative() {
-        try {
-            testCollection.remove(-1);
-            fail("Exception should have been thrown");
-        } catch (CollectionIndexOutOfBoundsException e) {
-            //pass
-        }
-    }
-
-    @Test
-    void testRemoveIntegerParameterOutOfBounds() {
-        try {
-            testCollection.remove(3);
-            fail("Exception should have been thrown");
-        } catch (CollectionIndexOutOfBoundsException e) {
-            //pass
-        }
     }
 
     @Test
@@ -162,43 +127,11 @@ public class UserTest {
 
     @Test
     void testGetWithMultipleElementsInList() {
-        try {
             testCollection.add(b);
             testCollection.add(c);
             assertEquals(b, testCollection.get(1));
             assertEquals(c, testCollection.get(2));
-        } catch (CollectionIndexOutOfBoundsException e) {
-            fail();
-        }
+
     }
 
-    @Test
-    void testGetOutOfBoundsBoundary() {
-        try {
-            testCollection.get(1);
-            fail("Exception should have been thrown");
-        } catch (CollectionIndexOutOfBoundsException e) {
-            //pass
-        }
-    }
-
-    @Test
-    void testGetOutOfBoundsNegative() {
-        try {
-            testCollection.get(-1);
-            fail("Exception should have been thrown");
-        } catch (CollectionIndexOutOfBoundsException e) {
-            //pass
-        }
-    }
-
-    @Test
-    void testGetOutOfBounds() {
-        try {
-            testCollection.get(3);
-            fail("Exception should have been thrown");
-        } catch (CollectionIndexOutOfBoundsException e) {
-            //pass
-        }
-    }
 }

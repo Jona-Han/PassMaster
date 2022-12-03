@@ -5,7 +5,6 @@ import model.Account;
 import model.User;
 
 import java.io.IOException;
-import exceptions.CollectionIndexOutOfBoundsException;
 
 import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.*;
@@ -68,8 +67,6 @@ class JsonWriterTest extends JsonTest {
             checkAccountIsSame("second", "c", "d", user.get(1));
         } catch (IOException e) {
             fail("IO Exception");
-        } catch (CollectionIndexOutOfBoundsException e) {
-            fail("Unable to get an account from user");
         }
     }
 }

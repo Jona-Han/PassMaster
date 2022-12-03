@@ -4,7 +4,6 @@ package persistence;
 import model.User;
 
 import java.io.IOException;
-import exceptions.CollectionIndexOutOfBoundsException;
 
 import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.*;
@@ -46,8 +45,6 @@ class JsonReaderTest extends JsonTest {
             checkAccountIsSame("second", "c", "d", user.get(1));
         } catch (IOException e) {
             fail("Couldn't read from file");
-        } catch (CollectionIndexOutOfBoundsException e) {
-            fail("Couldn't get Account from user");
         }
     }
 }

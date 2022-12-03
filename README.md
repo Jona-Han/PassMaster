@@ -29,10 +29,10 @@ understand how this is done.
 
 ## 3. Instructions for Grader
 - If you don't load data in the beginning, then follow the user registration process and remember the password you set
-- You can generate the first required event related to adding Accounts to a User by pressing the "add an account" button
+- You can generate the first required event related to adding Accounts to a User by pressing the "Add New Account" button
 and following the prompts.
 - You can generate the second required event related to adding Accounts to a User by selecting an account from the list
-of accounts displayed at the top and clicking "View Account Information" button
+of accounts displayed at the top and clicking the "Remove Account" button
 - You can locate my visual component by starting the application and seeing the splash screen
 - You can save the state of my application by logging in and exiting the application. Follow the prompts.
 - You can reload the state of my application by starting the application and clicking "yes" on the first prompt. Then

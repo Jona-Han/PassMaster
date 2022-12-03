@@ -23,7 +23,6 @@ understand how this is done.
 - As a user, I want to be able to click a button to add an account
 - As a user, I want to be able to remove an account from the User of the application
 - As a user, I want to be able to click a button to remove an account
-- As a user, I want to be able to edit the username and password of an account
 - As a user, I want to be prompted to save data to file when my application ends
 - As a user, I want to be prompted to load data from file when my application starts
 
@@ -60,3 +59,12 @@ Account removed from User: Google - username: jon password: pass
 
 Fri Dec 02 20:33:46 PST 2022
 User data converted to JSON.
+
+## 5. Phase 4: Task 3
+The main refactoring I would do would be to extract common functionality out of the PasswordManagerApp class into
+separate classes. Currently, the PasswordManagerApp class does too many things at once. First, I would likely extract 
+out a login manager class which would handle the UI of the login verification. I would also extract a class that
+handles the UI of the save and load data functions. I would also extract out a class that handles the UI of 
+registering a new user. This would allow the PasswordManagerApp to only handle the main UI once the user has
+successfully logged in. I believe that incorporating some of these changes would help to apply the single responsibility
+principle and improve coupling.

@@ -38,3 +38,25 @@ of accounts displayed at the top and clicking "View Account Information" button
 - You can save the state of my application by logging in and exiting the application. Follow the prompts.
 - You can reload the state of my application by starting the application and clicking "yes" on the first prompt. Then
 select the file you would like to load
+
+## 4. Phase 4: Task 2
+Fri Dec 02 20:32:47 PST 2022
+Account added to User: Google - username: jon password: pass
+
+Fri Dec 02 20:33:00 PST 2022
+Account added to User: Yahoo - username: bobby password: 1234556
+
+Fri Dec 02 20:33:25 PST 2022
+Account added to User: Facebook - username: michael password: j132j
+
+Fri Dec 02 20:33:30 PST 2022
+Account removed from User: Facebook - username: michael password: j132j
+
+Fri Dec 02 20:33:31 PST 2022
+Account removed from User: Yahoo - username: bobby password: 1234556
+
+Fri Dec 02 20:33:33 PST 2022
+Account removed from User: Google - username: jon password: pass
+
+Fri Dec 02 20:33:46 PST 2022
+User data converted to JSON.

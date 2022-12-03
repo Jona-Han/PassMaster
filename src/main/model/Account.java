@@ -2,7 +2,6 @@ package model;
 
 import org.json.JSONObject;
 import persistence.Writable;
-import ui.PasswordManagerApp;
 
 //Represents an account with a name, a login username, and a login password
 public class Account implements Writable {

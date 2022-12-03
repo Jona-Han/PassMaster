@@ -1,15 +1,4 @@
 {
-    "masterPassword": "j",
-    "accounts": [
-        {
-            "password": "password",
-            "name": "Gmail",
-            "username": "jonathan.han"
-        },
-        {
-            "password": "j",
-            "name": "Yahoo",
-            "username": "jon"
-        }
-    ]
+    "masterPassword": "password",
+    "accounts": []
 }

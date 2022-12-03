@@ -1,6 +1,5 @@
 package model;
 
-import exceptions.CollectionIndexOutOfBoundsException;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import persistence.Writable;
@@ -35,6 +34,10 @@ public class User implements Writable {
      * EFFECTS: adds an account to the CollectionOfAccounts, returns true if successfully added
      */
     public boolean add(Account account) {
+        EventLog.getInstance().logEvent(new Event(
+                "Account added to User: " + account.getName()
+                        + " - username: " + account.getUsername()
+                        + " password: " + account.getPassword()));
         return accounts.add(account);
     }
 
@@ -43,6 +46,10 @@ public class User implements Writable {
      * EFFECTS: removes an Account object from CollectionOfAccounts, returns true if successfully removed
      */
     public boolean remove(Account account) {
+        EventLog.getInstance().logEvent(new Event(
+                "Account removed from User: " + account.getName()
+                        + " - username: " + account.getUsername()
+                        + " password: " + account.getPassword()));
         return accounts.remove(account);
     }
 
@@ -50,10 +57,11 @@ public class User implements Writable {
      * MODIFIES: this
      * EFFECTS: removes an account at the specified index and returns that Account object
      */
-    public Account remove(int index) throws CollectionIndexOutOfBoundsException {
-        if ((index < 0) || (index >= accounts.size())) {
-            throw new CollectionIndexOutOfBoundsException();
-        }
+    public Account remove(int index) {
+        EventLog.getInstance().logEvent(new Event(
+                "Account removed from User: " + accounts.get(index).getName()
+                        + " - username: " + accounts.get(index).getUsername()
+                        + " password: " + accounts.get(index).getPassword()));
         return accounts.remove(index);
     }
 
@@ -74,10 +82,7 @@ public class User implements Writable {
     /*
      * EFFECTS: returns an Account at the specified index
      */
-    public Account get(int index) throws CollectionIndexOutOfBoundsException {
-        if ((index < 0) || (index >= accounts.size())) {
-            throw new CollectionIndexOutOfBoundsException();
-        }
+    public Account get(int index) {
         return accounts.get(index);
     }
 
@@ -106,6 +111,7 @@ public class User implements Writable {
      */
     @Override
     public JSONObject toJson() {
+        EventLog.getInstance().logEvent(new Event("User data converted to JSON."));
         JSONObject json = new JSONObject();
         json.put("masterPassword", masterPassword);
         json.put("accounts", accountsToJson());

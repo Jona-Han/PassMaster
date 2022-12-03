@@ -1,6 +1,7 @@
 package ui;
 
 import model.Account;
+import model.EventLog;
 import model.User;
 import persistence.JsonReader;
 import persistence.JsonWriter;
@@ -126,6 +127,13 @@ public class PasswordManagerApp extends JFrame {
                 if (promptUserToSaveData()) {
                     promptUserToChooseSavePath();
                 }
+
+                //Print log before exiting
+                for (model.Event event : EventLog.getInstance()) {
+                    System.out.println(event);
+                    System.out.println();
+                }
+
                 System.exit(0);
             }
         });

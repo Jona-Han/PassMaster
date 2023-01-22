@@ -93,7 +93,7 @@ public class PasswordManagerApp extends JFrame {
                     "Password Manager Login", JOptionPane.PLAIN_MESSAGE);
 
             //If password is correct, exit loop
-            if (Objects.equals(input, userData.getMasterPassword())) {
+            if (Objects.equals(input, userData.getPassword())) {
                 break;
             }
         }

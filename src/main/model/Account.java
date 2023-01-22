@@ -13,11 +13,7 @@ public class Account implements Writable {
      * EFFECTS: constructs an Account object with specified fields
      */
     public Account(String name, String username, String password) {
-        if (name.length() == 0) {
-            this.name = "_NO_VALUE_";
-        } else {
-            this.name = name;
-        }
+        this.name = name;
         this.username = username;
         this.password = password;
     }
@@ -28,11 +24,7 @@ public class Account implements Writable {
      *          assigns placeholder if passed in an empty string
      */
     public void setName(String name) {
-        if (name.length() == 0) {
-            this.name = "_NO_VALUE_";
-        } else {
-            this.name = name;
-        }
+        this.name = name;
     }
 
     /*

@@ -10,21 +10,24 @@ import java.util.List;
 //Represents a user class with a master password and a list of accounts
 public class User implements Writable {
     private final List<Account> accounts;
-    private String masterPassword;
+    private String username;
+    private String password;
 
     /*
      * EFFECTS: Constructs an empty CollectionOfAccounts with a master password
      */
-    public User(String masterPassword) {
-        this.masterPassword = masterPassword;
+    public User(String username, String password) {
+        this.username = username;
+        this.password = password;
         accounts = new ArrayList<>();
     }
 
     /*
      * EFFECTS: Constructs a new CollectionOfAccounts with an account and a master password
      */
-    public User(String masterPassword, Account account) {
-        this.masterPassword = masterPassword;
+    public User(String username, String password, Account account) {
+        this.username = username;
+        this.password = password;
         accounts = new ArrayList<>();
         accounts.add(account);
     }
@@ -98,12 +101,12 @@ public class User implements Writable {
         return accounts;
     }
 
-    public String getMasterPassword() {
-        return masterPassword;
+    public String getPassword() {
+        return password;
     }
 
-    public void setMasterPassword(String newPassword) {
-        this.masterPassword = newPassword;
+    public void setPassword(String newPassword) {
+        this.password = newPassword;
     }
 
     /*
@@ -113,7 +116,8 @@ public class User implements Writable {
     public JSONObject toJson() {
         EventLog.getInstance().logEvent(new Event("User data converted to JSON."));
         JSONObject json = new JSONObject();
-        json.put("masterPassword", masterPassword);
+        json.put("username", username);
+        json.put("password", password);
         json.put("accounts", accountsToJson());
         return json;
     }

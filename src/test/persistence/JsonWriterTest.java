@@ -16,7 +16,7 @@ class JsonWriterTest extends JsonTest {
 
     @BeforeEach
     void setUp() {
-        user = new User("password");
+        user = new User("username", "password");
     }
 
 

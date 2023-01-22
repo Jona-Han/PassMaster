@@ -45,7 +45,7 @@ public class JsonReader {
      * EFFECTS: Parses a collection of accounts from jsonObject and returns it
      */
     private User parseCollectionOfAccounts(JSONObject jsonObject) {
-        User accounts = new User(jsonObject.getString("masterPassword"));
+        User accounts = new User(jsonObject.getString("username"), jsonObject.getString("password"));
         addAccounts(accounts, jsonObject);
         return accounts;
     }

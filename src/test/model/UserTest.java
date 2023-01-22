@@ -10,6 +10,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class UserTest {
     User testCollection;
     List<Account> innerList;
+    String username;
     String pass;
     Account a;
     Account b;
@@ -20,15 +21,16 @@ public class UserTest {
         a = new Account("a", "userA", "passA");
         b = new Account("b", "userB", "passB");
         c = new Account("c", "userC", "passC");
+        username = "testUser";
         pass = "testPass";
 
-        testCollection = new User(pass, a);
+        testCollection = new User(username, pass, a);
         innerList = testCollection.getInnerList();
     }
 
     @Test
     void testEmptyConstructor() {
-        testCollection = new User(pass);
+        testCollection = new User(username, pass);
         List<Account> actualList = testCollection.getInnerList();
         assertEquals(0, actualList.size());
         assertEquals(pass, testCollection.getPassword());
@@ -36,7 +38,7 @@ public class UserTest {
 
     @Test
     void testConstructor() {
-        testCollection = new User(pass, a);
+        testCollection = new User(username, pass, a);
         List<Account> actualInnerList = testCollection.getInnerList();
         assertEquals(1, actualInnerList.size());
     }
@@ -93,7 +95,7 @@ public class UserTest {
 
     @Test
     void testSizeEmptyCollection() {
-        testCollection = new User(pass);
+        testCollection = new User(username, pass);
         assertEquals(0, testCollection.size());
     }
 

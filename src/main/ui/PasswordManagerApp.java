@@ -13,14 +13,14 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.*;
 
 //Password Manager Application
 public class PasswordManagerApp extends JFrame {
     private static final String SPLASH_ICON = "./data/lockIcon.jpeg";
+    private static final String SAVE_PATH = "./data/userData.json";
     private static final int APP_WIDTH = 500;
     private static final int APP_HEIGHT = 500;
-    private User userData;
+    protected User userData;
     private JList list;
     private DefaultListModel<Account> listModel;
 
@@ -29,24 +29,23 @@ public class PasswordManagerApp extends JFrame {
      */
     public PasswordManagerApp() {
         runSplashScreen();
-        promptUserToLoadSavedData();
-        runLoginProcess();
-        runManagerProcess();
+        new LogInManager(this);
     }
 
     /*
      * EFFECTS: Paints a splash screen
      */
     private void runSplashScreen() {
-        JFrame frame = new JFrame();
+        JDialog frame = new JDialog();
         frame.getContentPane().add(new JLabel("", new ImageIcon(SPLASH_ICON), SwingConstants.CENTER));
         frame.setSize(200, 200);    //Set properties of frame
-        frame.setLocationRelativeTo(null);
         frame.setUndecorated(true);
+        frame.setLocationRelativeTo(null);
         frame.setVisible(true);
+
         //Wait 5 seconds
         try {
-            Thread.sleep(5000);
+            Thread.sleep(50);
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }
@@ -54,57 +53,12 @@ public class PasswordManagerApp extends JFrame {
     }
 
     /*
-     * EFFECTS: Creates a pop-up that asks if the user would like to load data
-     *          Registers a new user if they don't want to
-     */
-    private void promptUserToLoadSavedData() {
-        if (JOptionPane.showConfirmDialog(null,
-                "Would you like to load previously saved data?",
-                "Password Manager", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE)
-                == JOptionPane.OK_OPTION) {
-            promptUserToChooseFileToLoad();
-        } else {
-            registerNewUser();
-        }
-    }
-
-    /*
-     * EFFECTS: Creates a file selector that allows a user to select a file to load
-     *          If user cancels, then register a new user
-     */
-    private void promptUserToChooseFileToLoad() {
-        JFileChooser fc = new JFileChooser("./data/");
-
-        if (fc.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
-            File file = fc.getSelectedFile();
-            loadManager(file.getPath());
-        } else {
-            registerNewUser();
-        }
-    }
-
-    /*
-     * EFFECTS: Checks for correct login info
-     */
-    private void runLoginProcess() {
-        while (true) {
-            String input = JOptionPane.showInputDialog(null,
-                    "Welcome to the Password Manager.\nPlease enter your password.",
-                    "Password Manager Login", JOptionPane.PLAIN_MESSAGE);
-
-            //If password is correct, exit loop
-            if (Objects.equals(input, userData.getPassword())) {
-                break;
-            }
-        }
-    }
-
-    /*
      * MODIFIES: this
      * EFFECTS: Initialize main app graphics
      */
-    private void runManagerProcess() {
+    protected void runManagerProcess() {
         setJframeProperties();
+        loadManager(SAVE_PATH);
         initializeAccountSelector();
         initializeMenu();
         setVisible(true);
@@ -124,10 +78,7 @@ public class PasswordManagerApp extends JFrame {
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
-                if (promptUserToSaveData()) {
-                    promptUserToChooseSavePath();
-                }
-
+                saveManager(SAVE_PATH);
                 //Print log before exiting
                 for (model.Event event : EventLog.getInstance()) {
                     System.out.println(event);
@@ -137,28 +88,6 @@ public class PasswordManagerApp extends JFrame {
                 System.exit(0);
             }
         });
-    }
-
-    /*
-     * EFFECTS: Ask user if they would like to save data before exiting.
-     *          returns true if yes is selected
-     *          returns false if no is selected
-     */
-    private boolean promptUserToSaveData() {
-        return (JOptionPane.showConfirmDialog(null,
-                "Would you like to save your data before exiting?",
-                "", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE) == JOptionPane.OK_OPTION);
-    }
-
-    /*
-     * EFFECTS: Creates a file selector that allows user to select where to save data.
-     */
-    private void promptUserToChooseSavePath() {
-        JFileChooser fc = new JFileChooser("./data/");
-        if (fc.showSaveDialog(null) == JFileChooser.APPROVE_OPTION) {
-            File file = fc.getSelectedFile();
-            saveManager(file.getPath());
-        }
     }
 
     /*
@@ -333,21 +262,7 @@ public class PasswordManagerApp extends JFrame {
             JsonReader jsonReader = new JsonReader(path);
             userData = jsonReader.read();
         } catch (Exception e) {
-            registerNewUser();
+            //TODO: FIX THIS
         }
     }
-
-    /*
-     * MODIFIES: this, User
-     * EFFECTS: Prompts the user to create a new password manager user with a master password.
-     */
-    private void registerNewUser() {
-        String input = JOptionPane.showInputDialog(null,
-                "Welcome! Create a new password manager account.\nWhat would you like your master password to be?",
-                "Password Manager Registration",
-                JOptionPane.PLAIN_MESSAGE);
-        userData = new User(input);
-    }
-
-
 }

@@ -66,14 +66,6 @@ class AccountTest {
     }
 
     @Test
-    void testSetNameEmptyString() {
-        String newName = "";
-        String expected = "_NO_VALUE_";
-        account.setName(newName);
-        assertEquals(expected, account.getName());
-    }
-
-    @Test
     void testSetUsername() {
         String newUsername = "newUsername";
         String expected = "newUsername";

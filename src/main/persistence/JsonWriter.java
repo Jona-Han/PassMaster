@@ -7,8 +7,6 @@ import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 
 //Represents a writer that writes JSON objects to file
-//All the code in this class is heavily inspired by...
-//SOURCE: https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
 public class JsonWriter {
     private static final int TAB = 4;
     private PrintWriter writer;
@@ -41,8 +39,8 @@ public class JsonWriter {
      * MODIFIES: this
      * EFFECTS: Writes the Json representation of AllUsers to the file system
      */
-    public void write(AllUsers userData) {
-        JSONObject json = userData.toJson();
+    public void write() {
+        JSONObject json = AllUsers.getInstance().toJson();
         saveToFile(json.toString(TAB));
     }
 

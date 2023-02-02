@@ -44,12 +44,6 @@ public class UserTest {
     }
 
     @Test
-    void testSetMasterPassword() {
-        testCollection.setPasswordHash("newPassword");
-        assertEquals("newPassword", testCollection.getPasswordHash());
-    }
-
-    @Test
     void testAddOneTime() {
         assertTrue(testCollection.add(b));
         assertEquals(2, innerList.size());

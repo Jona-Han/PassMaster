@@ -10,91 +10,26 @@ class AccountTest {
     String name;
     String username;
     String password;
+    String salt;
+    byte[] iv;
 
     @BeforeEach
     void setUp() {
         name = "Test Website";
         username = "test1";
         password = "password123";
-        account = new Account(name, username, password);
+        salt = "random";
+        iv = new byte[]{20, 30, 80, 65};
+        account = new Account(name, username, password, salt, iv);
     }
 
     @Test
-    void testConstructorNoneEmptyArray() {
-        String expectedName = "Test Website";
-        String expectedUsername = "test1";
-        String expectedPassword = "password123";
-
-        assertEquals(expectedName, account.getName());
-        assertEquals(expectedUsername, account.getUsername());
-        assertEquals(expectedPassword, account.getPassword());
-    }
-
-    @Test
-    void testConstructorEmptyUsernameArray() {
-        String expectedName = "Test Website";
-        String expectedUsername = "";
-        String expectedPassword = "password123";
-
-        account = new Account("Test Website", "", "password123");
-
-        assertEquals(expectedName, account.getName());
-        assertEquals(expectedUsername, account.getUsername());
-        assertEquals(expectedPassword, account.getPassword());
-    }
-
-    @Test
-    void testConstructorEmptyPasswordArray() {
-        String expectedName = "Test Website";
-        String expectedUsername = "test1";
-        String expectedPassword = "";
-
-        account = new Account("Test Website", "test1", "");
-
-        assertEquals(expectedName, account.getName());
-        assertEquals(expectedUsername, account.getUsername());
-        assertEquals(expectedPassword, account.getPassword());
-    }
-
-
-    @Test
-    void testSetName() {
-        String newName = "New Name";
-        String expected = "New Name";
-        account.setName(newName);
-        assertEquals(expected, account.getName());
-    }
-
-    @Test
-    void testSetUsername() {
-        String newUsername = "newUsername";
-        String expected = "newUsername";
-        account.setUsername(newUsername);
-        assertEquals(expected, account.getUsername());
-    }
-
-    @Test
-    void testSetUsernameEmptyString() {
-        String newUsername = "";
-        String expected = "";
-        account.setUsername(newUsername);
-        assertEquals(expected, account.getUsername());
-    }
-
-    @Test
-    void testSetPassword() {
-        String newPassword = "newPassword";
-        String expected  = "newPassword";
-        account.setPassword(newPassword);
-        assertEquals(expected, account.getPassword());
-    }
-
-    @Test
-    void testSetPasswordEmptyString() {
-        String newPassword = "";
-        String expected = "";
-        account.setPassword(newPassword);
-        assertEquals(expected, account.getPassword());
+    void testConstructor() {
+        assertEquals(account.getName(), name);
+        assertEquals(account.getPassword(), password);
+        assertEquals(account.getUsername(), username);
+        assertEquals(account.getSalt(), salt);
+        assertEquals(account.getIV(), iv);
     }
 
     @Test

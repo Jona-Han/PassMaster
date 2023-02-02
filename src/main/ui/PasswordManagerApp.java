@@ -1,11 +1,16 @@
 package ui;
 
+import encryption.Encryption;
 import model.Account;
+import model.AllUsers;
 import model.EventLog;
 import model.User;
 import persistence.JsonReader;
 import persistence.JsonWriter;
 
+import javax.crypto.BadPaddingException;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -13,6 +18,10 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.UnsupportedEncodingException;
+import java.security.InvalidAlgorithmParameterException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
 
 //Password Manager Application
 public class PasswordManagerApp extends JFrame {
@@ -20,7 +29,9 @@ public class PasswordManagerApp extends JFrame {
     private static final String SAVE_PATH = "./data/userData.json";
     private static final int APP_WIDTH = 500;
     private static final int APP_HEIGHT = 500;
+
     protected User userData;
+    private AllUsers allUsers = AllUsers.getInstance();
     private JList list;
     private DefaultListModel<Account> listModel;
 
@@ -29,6 +40,7 @@ public class PasswordManagerApp extends JFrame {
      */
     public PasswordManagerApp() {
         runSplashScreen();
+        loadManager(SAVE_PATH);
         new LogInManager(this);
     }
 
@@ -58,7 +70,6 @@ public class PasswordManagerApp extends JFrame {
      */
     protected void runManagerProcess() {
         setJframeProperties();
-        loadManager(SAVE_PATH);
         initializeAccountSelector();
         initializeMenu();
         setVisible(true);
@@ -154,13 +165,27 @@ public class PasswordManagerApp extends JFrame {
          */
         private AccountDialog() {
             Account account = (Account) list.getSelectedValue();
-
+            String password;
+            try {
+                password = Encryption.decryptPassword(account);
+            } catch (InvalidAlgorithmParameterException e) {
+                throw new RuntimeException(e);
+            } catch (NoSuchPaddingException e) {
+                throw new RuntimeException(e);
+            } catch (IllegalBlockSizeException e) {
+                throw new RuntimeException(e);
+            } catch (NoSuchAlgorithmException e) {
+                throw new RuntimeException(e);
+            } catch (BadPaddingException e) {
+                throw new RuntimeException(e);
+            } catch (InvalidKeyException e) {
+                throw new RuntimeException(e);
+            }
             //Create formatted account information
             String output = "<html><h1>" + account.getName() + "</h1>"
                     + "<div>Username: " + account.getUsername() + "</div>"
-                    + "<div>Password: " + account.getPassword() + "</div></html>";
+                    + "<div>Password: " + password + "</div></html>";
             JLabel name = new JLabel(output, SwingConstants.CENTER);
-
             //Create a close button and set its close action
             JButton closeButton = new JButton("Close");
             closeButton.addActionListener(e -> setVisible(false));
@@ -209,6 +234,11 @@ public class PasswordManagerApp extends JFrame {
                     JOptionPane.QUESTION_MESSAGE);
 
             Account accountToAdd = new Account(name, username, password);
+            try {
+                Encryption.encryptAccount(accountToAdd);
+            } catch (Exception e) {
+                throw new RuntimeException();
+            }
             userData.add(accountToAdd);
             listModel.addElement(accountToAdd);
             list.setSelectedIndex(listModel.getSize());
@@ -246,7 +276,7 @@ public class PasswordManagerApp extends JFrame {
         try {
             JsonWriter jsonWriter = new JsonWriter(path);
             jsonWriter.open();
-            jsonWriter.write(userData);
+            jsonWriter.write();
             jsonWriter.close();
         } catch (FileNotFoundException e) {
             System.out.println("Unable to save to file path: " + path);
@@ -260,7 +290,7 @@ public class PasswordManagerApp extends JFrame {
     private void loadManager(String path) {
         try {
             JsonReader jsonReader = new JsonReader(path);
-            userData = jsonReader.read();
+            jsonReader.read();
         } catch (Exception e) {
             //TODO: FIX THIS
         }

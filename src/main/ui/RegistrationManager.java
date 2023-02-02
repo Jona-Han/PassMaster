@@ -1,5 +1,6 @@
 package ui;
 
+import model.AllUsers;
 import model.User;
 
 import javax.swing.*;
@@ -71,6 +72,8 @@ public class RegistrationManager extends JFrame {
         confirm.setBounds(100, 230, 200, 30);
         confirm.addActionListener(e -> {
             app.userData = new User(username.getText(), password.getText());
+            app.userData.hashPassword();
+            AllUsers.getInstance().addUser(app.userData);
             setVisible(false);
             dispose();
             app.runManagerProcess();

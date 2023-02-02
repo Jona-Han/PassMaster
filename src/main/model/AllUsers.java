@@ -1,8 +1,6 @@
 package model;
 
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Set;
+import java.util.*;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -11,7 +9,7 @@ import persistence.Writable;
 // Singleton pattern - contains all the users of the application
 public class AllUsers implements Writable, Iterable<User> {
     private static AllUsers singleton;
-    private Set<User> users = new HashSet<>();
+    private List<User> users = new ArrayList<>();
     private AllUsers() {}
     public static AllUsers getInstance() {
         if (singleton == null) {
@@ -26,6 +24,18 @@ public class AllUsers implements Writable, Iterable<User> {
 
     public boolean removeUser(User user) {
         return users.remove(user);
+    }
+
+    public User get(int index) {
+        return users.get(index);
+    }
+
+    public int size() {
+        return users.size();
+    }
+
+    public void clear() {
+        users.clear();
     }
 
     @Override

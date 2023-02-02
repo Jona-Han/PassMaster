@@ -1,9 +1,15 @@
 package model;
 
+import encryption.Encryption;
 import encryption.EncryptionUtil;
+import org.apache.commons.codec.binary.Base64;
 import org.json.JSONObject;
 import persistence.Writable;
+
+import javax.crypto.SecretKey;
 import javax.crypto.spec.IvParameterSpec;
+import java.util.Arrays;
+import java.util.Objects;
 
 
 //Represents an account with a name, a login username, and a login password
@@ -12,7 +18,7 @@ public class Account implements Writable {
     private String username;
     private String password;
     private final byte[] iv;
-    private final String salt;
+    private SecretKey key;
 
     /*
      * EFFECTS: constructs an Account object with specified fields
@@ -21,16 +27,16 @@ public class Account implements Writable {
         IvParameterSpec ivSpec = EncryptionUtil.generateIv();
         this.iv = ivSpec.getIV();
         this.name = name;
-        this.salt = EncryptionUtil.generateRandomSalt();
+        this.key = EncryptionUtil.generateSecretKey(password, EncryptionUtil.generateRandomSalt());
         this.username = username;
         this.password = password;
     }
 
-    public Account(String name, String username, String password, String salt, byte[] iv) {
+    public Account(String name, String username, String password, SecretKey key, byte[] iv) {
         this.name = name;
         this.username = username;
         this.password = password;
-        this.salt = salt;
+        this.key = key;
         this.iv = iv;
     }
 
@@ -71,8 +77,8 @@ public class Account implements Writable {
         return password;
     }
 
-    public String getSalt() {
-        return salt;
+    public SecretKey getSecretKey() {
+        return key;
     }
 
     public byte[] getIV() {
@@ -88,8 +94,8 @@ public class Account implements Writable {
         json.put("name", name);
         json.put("username", username);
         json.put("password", password);
-        json.put("salt", salt);
-        json.put("iv", iv);
+        json.put("key", Base64.encodeBase64String(key.getEncoded()));
+        json.put("iv", Base64.encodeBase64String(iv));
         return json;
     }
 
@@ -100,5 +106,22 @@ public class Account implements Writable {
     public String toString() {
         return "<html><div style=\"font-size:12px;font-weight:bold;\">" + name
                 + "</div><div style=\"font-size:8px;\">" + username + "</div></html>";
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Account account = (Account) o;
+        return name.equals(account.name) && Objects.equals(username, account.username)
+                && Objects.equals(password, account.password) && Arrays.equals(iv, account.iv)
+                && key.equals(account.key);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = Objects.hash(name, username, password, key);
+        result = 31 * result + Arrays.hashCode(iv);
+        return result;
     }
 }

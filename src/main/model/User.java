@@ -7,6 +7,7 @@ import persistence.Writable;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 //Represents a user class with a master passwordHash and a list of accounts
 public class User implements Writable {
@@ -19,7 +20,7 @@ public class User implements Writable {
      */
     public User(String username, String password) {
         this.username = username;
-        this.passwordHash = EncryptionUtil.hashPassword(password, username);
+        this.passwordHash = password;
         accounts = new ArrayList<>();
     }
 
@@ -106,6 +107,14 @@ public class User implements Writable {
         return passwordHash;
     }
 
+    public String getUsername() {
+        return username;
+    }
+
+    public void hashPassword() {
+        passwordHash = EncryptionUtil.hashPassword(passwordHash, username);
+    }
+
     /*
      * EFFECTS: Converts this to a JSON Object
      */
@@ -129,5 +138,19 @@ public class User implements Writable {
             json.put(account.toJson());
         }
         return json;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return Objects.equals(accounts, user.accounts) && username.equals(user.username)
+                && passwordHash.equals(user.passwordHash);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(accounts, username, passwordHash);
     }
 }

@@ -1,7 +1,12 @@
 package ui;
 
+import encryption.EncryptionUtil;
+import model.AllUsers;
+import model.User;
+
 import javax.swing.*;
 import java.awt.*;
+import java.util.Objects;
 
 public class LogInManager extends JFrame {
     private PasswordManagerApp app;
@@ -60,17 +65,23 @@ public class LogInManager extends JFrame {
         JButton logInButton = new JButton("Log In");
         logInButton.setBounds(50, 240, 300, 30);
         logInButton.addActionListener(e -> {
-            //TODO: ADD LOGIN
-            //TODO: ADD Wrong credentials message
-            app.runManagerProcess();
+            for (User user : AllUsers.getInstance()) {
+                if (Objects.equals(user.getPasswordHash(),
+                        EncryptionUtil.hashPassword(password.getText(), username.getText()))) {
+                    setVisible(false);
+                    dispose();
+                    app.userData = user;
+                    app.runManagerProcess();
+                }
+            }
         });
 
         JButton registerButton = new JButton("Register New User");
         registerButton.setBounds(50, 270, 300, 30);
         registerButton.addActionListener(e -> {
             setVisible(false);
-            new RegistrationManager(app);
             dispose();
+            new RegistrationManager(app);
         });
         add(logInButton);
         add(registerButton);

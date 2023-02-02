@@ -11,10 +11,12 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.stream.Stream;
+import org.apache.commons.codec.binary.Base64;
+
+import javax.crypto.SecretKey;
+import javax.crypto.spec.SecretKeySpec;
 
 //Represents a reader that reads JSON objects from file
-//All the code in this class is heavily inspired by...
-//SOURCE: https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
 public class JsonReader {
     private final String source;
 
@@ -80,8 +82,9 @@ public class JsonReader {
         String name = jsonObject.getString("name");
         String username = jsonObject.getString("username");
         String password = jsonObject.getString("password");
-        String salt = jsonObject.getString("salt");
-        byte[] iv = (byte[]) jsonObject.get("iv");
-        user.add(new Account(name, username, password, salt, iv));
+        byte[] decodedString = Base64.decodeBase64(jsonObject.getString("key"));
+        SecretKey key = new SecretKeySpec(decodedString, "AES");
+        byte[] iv = Base64.decodeBase64(jsonObject.getString("iv"));
+        user.add(new Account(name, username, password, key, iv));
     }
 }

@@ -1,6 +1,7 @@
 package persistence;
 
 import model.Account;
+import model.AllUsers;
 import model.User;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -24,10 +25,10 @@ public class JsonReader {
     /*
      * EFFECTS: reads a collection of accounts from the file at destination source
      */
-    public User read() throws IOException {
+    public void read() throws IOException {
         String jsonData = readFile(source);
         JSONObject jsonObject = new JSONObject(jsonData);
-        return parseAllUsers(jsonObject);
+        parseAllUsers(jsonObject);
     }
 
     // EFFECTS: reads source file as string and returns it
@@ -44,22 +45,30 @@ public class JsonReader {
     /*
      * EFFECTS: Parses a collection of accounts from jsonObject and returns it
      */
-    private User parseAllUsers(JSONObject jsonObject) {
-        User accounts = new User(jsonObject.getString("username"), jsonObject.getString("password"));
-        addAccounts(accounts, jsonObject);
-        return accounts;
+    private void parseAllUsers(JSONObject jsonObject) {
+        JSONArray jsonUsers = jsonObject.getJSONArray("data");
+        AllUsers allUsers = AllUsers.getInstance();
+        for (Object jsonUser : jsonUsers) {
+            JSONObject nextUser = (JSONObject) jsonUser;
+            String username = nextUser.getString("username");
+            String passwordHash = nextUser.getString("passwordHash");
+            User newUser = new User(username, passwordHash);
+            addAccounts(newUser, nextUser);
+            allUsers.addUser(newUser);
+        }
+
     }
 
     /*
      * MODIFIES: CollectionOfAccounts
      * EFFECTS: Parses Accounts from jsonObject and adds them to the collection of accounts
      */
-    private void addAccounts(User accounts, JSONObject jsonObject) {
+    private void addAccounts(User user, JSONObject jsonObject) {
         JSONArray jsonArray = jsonObject.getJSONArray("accounts");
 
         for (Object jsonAccount : jsonArray) {
             JSONObject nextAccount = (JSONObject) jsonAccount;
-            addAccount(accounts, nextAccount);
+            addAccount(user, nextAccount);
         }
     }
 
@@ -67,10 +76,12 @@ public class JsonReader {
      * MODIFIES: CollectionOfAccounts
      * EFFECTS: Parses an account from jsonObject and adds it to the collection of accounts
      */
-    private void addAccount(User accounts, JSONObject jsonObject) {
+    private void addAccount(User user, JSONObject jsonObject) {
         String name = jsonObject.getString("name");
         String username = jsonObject.getString("username");
         String password = jsonObject.getString("password");
-        accounts.add(new Account(name, username, password));
+        String salt = jsonObject.getString("salt");
+        byte[] iv = (byte[]) jsonObject.get("iv");
+        user.add(new Account(name, username, password, salt, iv));
     }
 }

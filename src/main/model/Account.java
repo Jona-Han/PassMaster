@@ -26,6 +26,14 @@ public class Account implements Writable {
         this.password = password;
     }
 
+    public Account(String name, String username, String password, String salt, byte[] iv) {
+        this.name = name;
+        this.username = username;
+        this.password = password;
+        this.salt = salt;
+        this.iv = iv;
+    }
+
     /*
      * MODIFIES: this
      * EFFECTS: changes the account's associated name
@@ -80,6 +88,8 @@ public class Account implements Writable {
         json.put("name", name);
         json.put("username", username);
         json.put("password", password);
+        json.put("salt", salt);
+        json.put("iv", iv);
         return json;
     }
 

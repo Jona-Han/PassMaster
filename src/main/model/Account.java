@@ -1,19 +1,27 @@
 package model;
 
+import encryption.EncryptionUtil;
 import org.json.JSONObject;
 import persistence.Writable;
+import javax.crypto.spec.IvParameterSpec;
+
 
 //Represents an account with a name, a login username, and a login password
 public class Account implements Writable {
     private String name;
     private String username;
     private String password;
+    private final byte[] iv;
+    private final String salt;
 
     /*
      * EFFECTS: constructs an Account object with specified fields
      */
     public Account(String name, String username, String password) {
+        IvParameterSpec ivSpec = EncryptionUtil.generateIv();
+        this.iv = ivSpec.getIV();
         this.name = name;
+        this.salt = EncryptionUtil.generateRandomSalt();
         this.username = username;
         this.password = password;
     }
@@ -53,6 +61,14 @@ public class Account implements Writable {
 
     public String getPassword() {
         return password;
+    }
+
+    public String getSalt() {
+        return salt;
+    }
+
+    public byte[] getIV() {
+        return iv;
     }
 
     /*

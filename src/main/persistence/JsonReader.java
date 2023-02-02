@@ -27,7 +27,7 @@ public class JsonReader {
     public User read() throws IOException {
         String jsonData = readFile(source);
         JSONObject jsonObject = new JSONObject(jsonData);
-        return parseCollectionOfAccounts(jsonObject);
+        return parseAllUsers(jsonObject);
     }
 
     // EFFECTS: reads source file as string and returns it
@@ -44,7 +44,7 @@ public class JsonReader {
     /*
      * EFFECTS: Parses a collection of accounts from jsonObject and returns it
      */
-    private User parseCollectionOfAccounts(JSONObject jsonObject) {
+    private User parseAllUsers(JSONObject jsonObject) {
         User accounts = new User(jsonObject.getString("username"), jsonObject.getString("password"));
         addAccounts(accounts, jsonObject);
         return accounts;

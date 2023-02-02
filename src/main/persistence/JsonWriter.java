@@ -1,5 +1,6 @@
 package persistence;
 
+import model.AllUsers;
 import model.User;
 import org.json.JSONObject;
 import java.io.FileNotFoundException;
@@ -38,9 +39,9 @@ public class JsonWriter {
 
     /*
      * MODIFIES: this
-     * EFFECTS: Writes the Json representation of CollectionOfAccounts to the file system
+     * EFFECTS: Writes the Json representation of AllUsers to the file system
      */
-    public void write(User userData) {
+    public void write(AllUsers userData) {
         JSONObject json = userData.toJson();
         saveToFile(json.toString(TAB));
     }

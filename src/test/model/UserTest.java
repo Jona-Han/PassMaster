@@ -33,7 +33,7 @@ public class UserTest {
         testCollection = new User(username, pass);
         List<Account> actualList = testCollection.getInnerList();
         assertEquals(0, actualList.size());
-        assertEquals(pass, testCollection.getPassword());
+        assertEquals(pass, testCollection.getPasswordHash());
     }
 
     @Test
@@ -45,8 +45,8 @@ public class UserTest {
 
     @Test
     void testSetMasterPassword() {
-        testCollection.setPassword("newPassword");
-        assertEquals("newPassword", testCollection.getPassword());
+        testCollection.setPasswordHash("newPassword");
+        assertEquals("newPassword", testCollection.getPasswordHash());
     }
 
     @Test

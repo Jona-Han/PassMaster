@@ -1,5 +1,6 @@
 package model;
 
+import encryption.EncryptionUtil;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import persistence.Writable;
@@ -7,27 +8,27 @@ import persistence.Writable;
 import java.util.ArrayList;
 import java.util.List;
 
-//Represents a user class with a master password and a list of accounts
+//Represents a user class with a master passwordHash and a list of accounts
 public class User implements Writable {
     private final List<Account> accounts;
     private String username;
-    private String password;
+    private String passwordHash;
 
     /*
-     * EFFECTS: Constructs an empty CollectionOfAccounts with a master password
+     * EFFECTS: Constructs an empty CollectionOfAccounts with a master passwordHash
      */
     public User(String username, String password) {
         this.username = username;
-        this.password = password;
+        this.passwordHash = EncryptionUtil.hashPassword(password, username);
         accounts = new ArrayList<>();
     }
 
     /*
-     * EFFECTS: Constructs a new CollectionOfAccounts with an account and a master password
+     * EFFECTS: Constructs a new CollectionOfAccounts with an account and a master passwordHash
      */
-    public User(String username, String password, Account account) {
+    public User(String username, String passwordHash, Account account) {
         this.username = username;
-        this.password = password;
+        this.passwordHash = passwordHash;
         accounts = new ArrayList<>();
         accounts.add(account);
     }
@@ -40,7 +41,7 @@ public class User implements Writable {
         EventLog.getInstance().logEvent(new Event(
                 "Account added to User: " + account.getName()
                         + " - username: " + account.getUsername()
-                        + " password: " + account.getPassword()));
+                        + " passwordHash: " + account.getPassword()));
         return accounts.add(account);
     }
 
@@ -52,7 +53,7 @@ public class User implements Writable {
         EventLog.getInstance().logEvent(new Event(
                 "Account removed from User: " + account.getName()
                         + " - username: " + account.getUsername()
-                        + " password: " + account.getPassword()));
+                        + " passwordHash: " + account.getPassword()));
         return accounts.remove(account);
     }
 
@@ -64,7 +65,7 @@ public class User implements Writable {
         EventLog.getInstance().logEvent(new Event(
                 "Account removed from User: " + accounts.get(index).getName()
                         + " - username: " + accounts.get(index).getUsername()
-                        + " password: " + accounts.get(index).getPassword()));
+                        + " passwordHash: " + accounts.get(index).getPassword()));
         return accounts.remove(index);
     }
 
@@ -101,12 +102,8 @@ public class User implements Writable {
         return accounts;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String newPassword) {
-        this.password = newPassword;
+    public String getPasswordHash() {
+        return passwordHash;
     }
 
     /*
@@ -117,7 +114,7 @@ public class User implements Writable {
         EventLog.getInstance().logEvent(new Event("User data converted to JSON."));
         JSONObject json = new JSONObject();
         json.put("username", username);
-        json.put("password", password);
+        json.put("passwordHash", passwordHash);
         json.put("accounts", accountsToJson());
         return json;
     }

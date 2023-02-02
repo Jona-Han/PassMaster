@@ -27,7 +27,7 @@ class JsonReaderTest extends JsonTest {
         JsonReader reader = new JsonReader("./data/testReaderNoAccounts.json");
         try {
             User user = reader.read();
-            assertEquals("password", user.getPassword());
+            assertEquals("password", user.getPasswordHash());
             assertEquals(0, user.size());
         } catch (IOException e) {
             fail("Failed to read from file");
@@ -39,7 +39,7 @@ class JsonReaderTest extends JsonTest {
         JsonReader reader = new JsonReader("./data/testReaderUnderNormalFunction.json");
         try {
             User user = reader.read();
-            assertEquals("password", user.getPassword());
+            assertEquals("password", user.getPasswordHash());
             assertEquals(2, user.size());
             checkAccountIsSame("first", "a", "b", user.get(0));
             checkAccountIsSame("second", "c", "d", user.get(1));

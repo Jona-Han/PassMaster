@@ -41,7 +41,7 @@ class JsonWriterTest extends JsonTest {
 
             JsonReader reader = new JsonReader("./data/testWriterNoAccounts.json");
             user = reader.read();
-            assertEquals("password", user.getPassword());
+            assertEquals("password", user.getPasswordHash());
             assertEquals(0, user.size());
         } catch (IOException e) {
             fail("IO Exception thrown");
@@ -60,7 +60,7 @@ class JsonWriterTest extends JsonTest {
 
             JsonReader reader = new JsonReader("./data/testWriterUnderNormalFunction.json");
             user = reader.read();
-            assertEquals("password", user.getPassword());
+            assertEquals("password", user.getPasswordHash());
             assertEquals(2, user.size());
 
             checkAccountIsSame("first", "a", "b", user.get(0));

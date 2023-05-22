@@ -3,6 +3,8 @@
 Warning: This application does not follow all of the best security practices. Do not store private information in this application.
 This was solely a learning experience for me.
 
+## STATUS: COMPLETE
+
 ## 1. Summary
 
 **This project stores account login information.** All of the username and password combinations can be accessed after logging in using a master username and password. All data is stored and encrypted onto the local file system. Specific information for an account is unencrypted only when needed.

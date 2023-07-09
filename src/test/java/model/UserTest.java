@@ -82,52 +82,7 @@ public class UserTest {
     }
 
     @Test
-    void testRemoveIntegerParameterSucceed() {
-            assertEquals(a, testCollection.remove(0));
-            assertEquals(0, innerList.size());
-    }
-
-    @Test
-    void testSizeEmptyCollection() {
-        testCollection = new User(username, pass);
-        assertEquals(0, testCollection.size());
-    }
-
-
-    @Test
-    void testSize() {
-        assertEquals(1, testCollection.size());
-    }
-
-    @Test
-    void testSizeMultipleItems() {
-        testCollection.add(b);
-        testCollection.add(c);
-        assertEquals(3, testCollection.size());
-    }
-
-    @Test
-    void testContainsTrue() {
-        assertTrue(testCollection.contains(a));
-    }
-
-    @Test
-    void testContainsFalse() {
-        assertFalse(testCollection.contains(b));
-    }
-
-    @Test
     void testGet() {
         assertEquals(a, innerList.get(0));
     }
-
-    @Test
-    void testGetWithMultipleElementsInList() {
-            testCollection.add(b);
-            testCollection.add(c);
-            assertEquals(b, testCollection.get(1));
-            assertEquals(c, testCollection.get(2));
-
-    }
-
 }

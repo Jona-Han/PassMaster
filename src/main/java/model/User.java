@@ -41,8 +41,7 @@ public class User implements Writable {
     public boolean add(Account account) {
         EventLog.getInstance().logEvent(new Event(
                 "Account added to User: " + account.getName()
-                        + " - username: " + account.getUsername()
-                        + " passwordHash: " + account.getPassword()));
+                        + " - username: " + account.getUsername()));
         return accounts.add(account);
     }
 
@@ -53,42 +52,8 @@ public class User implements Writable {
     public boolean remove(Account account) {
         EventLog.getInstance().logEvent(new Event(
                 "Account removed from User: " + account.getName()
-                        + " - username: " + account.getUsername()
-                        + " passwordHash: " + account.getPassword()));
+                        + " - username: " + account.getUsername()));
         return accounts.remove(account);
-    }
-
-    /*
-     * MODIFIES: this
-     * EFFECTS: removes an account at the specified index and returns that Account object
-     */
-    public Account remove(int index) {
-        EventLog.getInstance().logEvent(new Event(
-                "Account removed from User: " + accounts.get(index).getName()
-                        + " - username: " + accounts.get(index).getUsername()
-                        + " passwordHash: " + accounts.get(index).getPassword()));
-        return accounts.remove(index);
-    }
-
-    /*
-     * EFFECTS: checks if there's an Account object in the CollectionOfAccounts and returns true if there is
-     */
-    public boolean contains(Account account) {
-        return accounts.contains(account);
-    }
-
-    /*
-     * EFFECTS: returns the size of the CollectionOfAccounts
-     */
-    public int size() {
-        return accounts.size();
-    }
-
-    /*
-     * EFFECTS: returns an Account at the specified index
-     */
-    public Account get(int index) {
-        return accounts.get(index);
     }
 
     /*

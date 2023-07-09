@@ -3,6 +3,9 @@ package model;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import javax.crypto.SecretKey;
+import javax.crypto.spec.SecretKeySpec;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class AccountTest {
@@ -10,7 +13,7 @@ class AccountTest {
     String name;
     String username;
     String password;
-    String salt;
+    SecretKey key;
     byte[] iv;
 
     @BeforeEach
@@ -18,9 +21,9 @@ class AccountTest {
         name = "Test Website";
         username = "test1";
         password = "password123";
-        salt = "random";
         iv = new byte[]{20, 30, 80, 65};
-        account = new Account(name, username, password, salt, iv);
+        key = new SecretKeySpec(iv, "AES");
+        account = new Account(name, username, password, key, iv);
     }
 
     @Test
@@ -28,7 +31,7 @@ class AccountTest {
         assertEquals(account.getName(), name);
         assertEquals(account.getPassword(), password);
         assertEquals(account.getUsername(), username);
-        assertEquals(account.getSalt(), salt);
+        assertEquals(account.getSecretKey(), key);
         assertEquals(account.getIV(), iv);
     }
 

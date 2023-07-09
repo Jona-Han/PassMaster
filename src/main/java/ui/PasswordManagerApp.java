@@ -26,7 +26,7 @@ import java.security.NoSuchAlgorithmException;
 //Password Manager Application
 public class PasswordManagerApp extends JFrame {
     private static final String SPLASH_ICON = "./data/lockIcon.jpeg";
-    private static final String SAVE_PATH = "./data/userData.json";
+    private static final String SAVE_PATH = "./data/data.json";
     private static final int APP_WIDTH = 500;
     private static final int APP_HEIGHT = 500;
 
@@ -57,7 +57,7 @@ public class PasswordManagerApp extends JFrame {
 
         //Wait 5 seconds
         try {
-            Thread.sleep(50);
+            Thread.sleep(3000);
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }
@@ -168,18 +168,8 @@ public class PasswordManagerApp extends JFrame {
             String password;
             try {
                 password = Encryption.decryptPassword(account);
-            } catch (InvalidAlgorithmParameterException e) {
-                throw new RuntimeException(e);
-            } catch (NoSuchPaddingException e) {
-                throw new RuntimeException(e);
-            } catch (IllegalBlockSizeException e) {
-                throw new RuntimeException(e);
-            } catch (NoSuchAlgorithmException e) {
-                throw new RuntimeException(e);
-            } catch (BadPaddingException e) {
-                throw new RuntimeException(e);
-            } catch (InvalidKeyException e) {
-                throw new RuntimeException(e);
+            } catch (Exception e) {
+                throw new RuntimeException();
             }
             //Create formatted account information
             String output = "<html><h1>" + account.getName() + "</h1>"

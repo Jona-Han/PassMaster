@@ -27,3 +27,21 @@ This project is interesting to me because it allows me to practice implementing 
 - As a user, I want to be able to click a button to remove an account
 - As a user, I want to be prompted to save data to file when my application ends
 - As a user, I want to be prompted to load data from file when my application starts
+
+## 4. Images
+Login Page<br>
+<img width="477" alt="Screenshot 2023-07-09 at 2 49 58 AM" src="https://github.com/Jona-Han/PasswordManager/assets/87393036/54138702-b0d7-4cbb-bba6-60e769af5990">
+
+Registration Page<br>
+<img width="477" alt="Screenshot 2023-07-09 at 2 50 08 AM" src="https://github.com/Jona-Han/PasswordManager/assets/87393036/b23c6aa1-5f0f-4b98-9b1d-5b837f92c781">
+
+Main menu<br>
+<img width="526" alt="Screenshot 2023-07-09 at 2 53 20 AM" src="https://github.com/Jona-Han/PasswordManager/assets/87393036/065e549c-1541-41e7-b5f8-49bfc5a35608">
+
+View information<br>
+<img width="526" alt="Screenshot 2023-07-09 at 2 53 26 AM" src="https://github.com/Jona-Han/PasswordManager/assets/87393036/006a157b-2826-44d6-b759-59f808d6b144">
+
+After delete Yahoo account<br>
+<img width="526" alt="Screenshot 2023-07-09 at 2 53 51 AM" src="https://github.com/Jona-Han/PasswordManager/assets/87393036/342c3f97-4d1b-4279-b74f-3ad15d323fe7">
+
+

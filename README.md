@@ -44,4 +44,6 @@ View information<br>
 After delete Yahoo account<br>
 <img width="526" alt="Screenshot 2023-07-09 at 2 53 51 AM" src="https://github.com/Jona-Han/PasswordManager/assets/87393036/342c3f97-4d1b-4279-b74f-3ad15d323fe7">
 
+Data is encrypted<br>
+<img width="822" alt="Screenshot 2023-07-09 at 3 02 21 AM" src="https://github.com/Jona-Han/PasswordManager/assets/87393036/06b0bf05-1a4e-43a7-91e6-daf105659cfe">
 

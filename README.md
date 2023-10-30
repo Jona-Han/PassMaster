@@ -1,9 +1,4 @@
-# Password Manager Project
-
-Warning: This application does not follow all of the best security practices. Do not store private information in this application.
-This was solely a learning experience for me.
-
-## STATUS: COMPLETE
+# PassMaster
 
 ## 1. Summary
 
@@ -16,7 +11,7 @@ This project is interesting to me because it allows me to practice implementing 
 - JUnit : The JUnit library was used in order to practice **test-driven development** practices
 - Swing : The Swing library was used for the UI. This was chosen due to its maturity and big library of GUI
 
-## 3. User Stories
+## 3. Requirements
 
 - As a user, I want to be able to log in using a master passwordHash which is stored as a file
 - As a user, I want to be able to see a list of accounts
